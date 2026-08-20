@@ -31,6 +31,7 @@
     <div class="my-16 flex flex-wrap items-center justify-center gap-2">
       {#if page.data.loggedIn}
         <ButtonLink href={resolve("/(authenticated)/account")}>My Account</ButtonLink>
+        <ButtonLink href={resolve("/(authenticated)/age-upload")}>Age Uploader</ButtonLink>
       {:else}
         <ButtonLink href={resolve("/signup")}>Sign Up</ButtonLink>
         <ButtonLink href={resolve("/login")}>Login</ButtonLink>

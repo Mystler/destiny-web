@@ -31,11 +31,11 @@
 <style lang="postcss">
   @reference "../../routes/layout.css";
 
-  .menu > a {
+  .menu a {
     @apply transition-transform duration-200 ease-out;
   }
 
-  .menu > a:hover {
+  .menu a:hover {
     @apply scale-110;
   }
 </style>

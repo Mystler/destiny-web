@@ -1,6 +1,7 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
   import { slide } from "$lib/assets/Animatons";
+  import ButtonLink from "$lib/components/ButtonLink.svelte";
   import Card from "$lib/components/Card.svelte";
 
   let { data, form } = $props();
@@ -12,7 +13,7 @@
   <meta name="description" content="Manage your DestinyURU account." />
 </svelte:head>
 
-<h1>My DestinyURU Account</h1>
+<h1>My Account</h1>
 
 <p>Welcome {data.loggedIn}!</p>
 
@@ -63,7 +64,9 @@
   </form>
 {/if}
 
-<div class="mt-16">INSERT AGE UPLOADER LINK</div>
+<div class="mt-16">
+  <ButtonLink href={resolve("/(authenticated)/age-upload")}>Age Uploader</ButtonLink>
+</div>
 
 <div class="mx-auto mt-16 max-w-xl p-1">
   <Card>

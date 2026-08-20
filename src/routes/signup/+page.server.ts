@@ -64,7 +64,7 @@ export const actions = {
       });
     }
 
-    const success = await createUser(login, email, password);
+    const success = await createUser(login.trim(), email.trim(), password);
     if (!success) {
       return fail(400, {
         fail: true,

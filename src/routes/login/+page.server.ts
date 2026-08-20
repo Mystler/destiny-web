@@ -16,7 +16,7 @@ export const actions = {
       });
     }
 
-    const session = await loginUser(login, password);
+    const session = await loginUser(login.trim(), password);
     if (!session) {
       return fail(400, {
         fail: true,

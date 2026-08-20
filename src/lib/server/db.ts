@@ -64,6 +64,7 @@ export async function logoutUser(id: number): Promise<boolean> {
 
 export interface User {
   username: string;
+  email: string;
   webId: number;
   authId: number;
   admin: boolean;
@@ -74,12 +75,13 @@ export interface User {
  */
 export async function getUserData(session: string): Promise<User | null> {
   if (!sql) return null;
-  const user = await sql`SELECT w."name", w."id", a."idx", a."AcctFlags" FROM web."Accounts" w
+  const user = await sql`SELECT w."name", w."email", w."id", a."idx", a."AcctFlags" FROM web."Accounts" w
       JOIN auth."Accounts" a ON lower(w."name") = lower(a."Login")
       WHERE "session_token" = ${session}`;
   if (user[0]) {
     return {
       username: user[0].name,
+      email: user[0].email,
       webId: user[0].id,
       authId: user[0].idx,
       admin: user[0].AcctFlags & 0x1 ? true : false,
@@ -166,4 +168,23 @@ export async function changeEmail(id: number, password: string, email: string): 
     return true;
   }
   return false;
+}
+
+/**
+ * Grab the avatar list for the account.
+ */
+export async function getUserAvatars(authId: number) {
+  if (!sql) return null;
+  return await sql<
+    {
+      PlayerIdx: number;
+      PlayerName: string;
+      Online: boolean;
+      Location: string;
+    }[]
+  >`SELECT p."PlayerIdx", p."PlayerName", n."Int32_1" as Online, n."String64_1" as Location
+      FROM auth."Players" p
+      JOIN auth."Accounts" a ON a."AcctUuid" = p."AcctUuid"
+      LEFT JOIN vault."Nodes" n ON n."NodeType"=23 AND n."Uint32_1" = p."PlayerIdx"
+      WHERE a."idx" = ${authId}`;
 }

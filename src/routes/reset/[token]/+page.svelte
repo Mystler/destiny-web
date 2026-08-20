@@ -1,7 +1,4 @@
 <script lang="ts">
-  import { resolve } from "$app/paths";
-  import ButtonLink from "$lib/components/ButtonLink.svelte";
-
   let { form } = $props();
 </script>
 

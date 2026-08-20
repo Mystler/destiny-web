@@ -1,7 +1,15 @@
-import { changeEmail, changePassword } from "$lib/server/db";
+import { changeEmail, changePassword, getUserAvatars } from "$lib/server/db";
 import { fail, redirect } from "@sveltejs/kit";
-import type { Actions } from "./$types";
+import type { Actions, PageServerLoad } from "./$types";
 import { resolve } from "$app/paths";
+
+export const load: PageServerLoad = async (event) => {
+  if (!event.locals.user) return;
+  return {
+    email: event.locals.user.email,
+    avatars: await getUserAvatars(event.locals.user.authId),
+  };
+};
 
 export const actions = {
   change_email: async ({ request, locals }) => {

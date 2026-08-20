@@ -1,9 +1,9 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
-  import { page } from "$app/state";
   import { slide } from "$lib/assets/Animatons";
+  import Card from "$lib/components/Card.svelte";
 
-  let { form } = $props();
+  let { data, form } = $props();
   let showForm = $state<"email" | "password">();
 </script>
 
@@ -14,7 +14,7 @@
 
 <h1>My DestinyURU Account</h1>
 
-<p>Welcome {page.data.loggedIn}!</p>
+<p>Welcome {data.loggedIn}!</p>
 
 {#if form?.error}
   <p class="error">{form.error}</p>
@@ -34,6 +34,7 @@
 
 {#if showForm === "email"}
   <form transition:slide method="POST" action="?/change_email" class="flex flex-col items-center gap-2 text-left">
+    <p class="text-xs">Current E-Mail Address:<br />{data.email}</p>
     <label>
       Password:<br />
       <input type="password" name="password" required />
@@ -62,4 +63,25 @@
   </form>
 {/if}
 
-<div class="mt-16">More content may appear here later!</div>
+<div class="mt-16">INSERT AGE UPLOADER LINK</div>
+
+<div class="mx-auto mt-16 max-w-xl p-1">
+  <Card>
+    <h3>My Avatars</h3>
+    {#if !data.avatars || data.avatars.length === 0}
+      <p>None! You should log into Destiny and make one!</p>
+    {:else}
+      <div class="flex flex-col gap-2">
+        {#each data.avatars as avatar (avatar.PlayerIdx)}
+          <div class="flex flex-wrap items-center gap-4">
+            <div>{avatar.Online ? "🟢" : "🔴"} {avatar.PlayerName}</div>
+            <div class="text-xs text-slate-500">(KI# {avatar.PlayerIdx})</div>
+            {#if avatar.Location}
+              <div class="text-xs text-slate-500">Currently online in {avatar.Location}</div>
+            {/if}
+          </div>
+        {/each}
+      </div>
+    {/if}
+  </Card>
+</div>

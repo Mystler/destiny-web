@@ -12,11 +12,13 @@
       <div class="font-semibold">DestinyURU</div>
     </a>
     <div class="hidden items-center gap-8 md:flex">
+      <a href={resolve("/howto")}>How-To</a>
+      <a href={resolve("/fan-ages")}>Fan Ages</a>
       <a href={resolve("/news")}>News</a>
-      <a href={resolve("/news")}>News</a>
+      <a href={resolve("/about")}>About</a>
     </div>
   </div>
-  <div class="menu flex items-center gap-8 text-right">
+  <div class="menu hidden items-center gap-8 text-right md:flex">
     {#if page.data.loggedIn}
       <div>
         Logged in as <a href={resolve("/(authenticated)/account")}>{page.data.loggedIn}</a><br />

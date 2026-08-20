@@ -7,7 +7,7 @@
   <meta name="description" content="The latest news about the DestinyURU Shard." />
 </svelte:head>
 
-<h1>DestinyURU News</h1>
+<h1>News</h1>
 
 <div class="p-1">
   <Card date="2026-08-20">

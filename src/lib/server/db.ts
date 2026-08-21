@@ -1,16 +1,16 @@
 import postgres from "postgres";
-import { env } from "$env/dynamic/private";
 import { building } from "$app/env";
 import { hash, randomBytes } from "node:crypto";
+import { DATABASE_DB, DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USER } from "$env/static/private";
 
 let sql: postgres.Sql | undefined;
 
 if (!building) {
   sql = postgres({
-    host: env.DATABASE_HOST,
-    user: env.DATABASE_USER,
-    pass: env.DATABASE_PASSWORD,
-    database: env.DATABASE_DB,
+    host: DATABASE_HOST,
+    user: DATABASE_USER,
+    pass: DATABASE_PASSWORD,
+    database: DATABASE_DB,
   });
 }
 

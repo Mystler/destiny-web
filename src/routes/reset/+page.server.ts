@@ -1,8 +1,7 @@
 import { fail } from "@sveltejs/kit";
 import type { Actions } from "./$types";
-import { RECAPTCHA_VERIFICATION_URL } from "$env/static/private";
+import { MAIL_TEST_MODE, RECAPTCHA_VERIFICATION_URL } from "$env/static/private";
 import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
-import { env } from "$env/dynamic/private";
 import { forgotPasswordToken } from "$lib/server/db";
 import { sendMail } from "$lib/server/mailer";
 
@@ -55,7 +54,7 @@ export const actions = {
     if (token) {
       const subject = "[DestinyURU] Password Reset";
       const message = `Hello,\na password reset has been requested for your account. Please visit the following in order to set a new password:\n\n${url.origin}/reset/${token}`;
-      if (env.MAIL_TEST_MODE === "true") {
+      if (MAIL_TEST_MODE === "true") {
         console.log(subject);
         console.log(message);
       } else {

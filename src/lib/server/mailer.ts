@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { env } from "$env/dynamic/private";
+import { MAIL_SENDER } from "$env/static/private";
 
 const mailer = nodemailer.createTransport({
   sendmail: true,
@@ -7,7 +7,7 @@ const mailer = nodemailer.createTransport({
 
 export function sendMail(target: string, subject: string, message: string) {
   mailer.sendMail({
-    from: env.MAIL_SENDER,
+    from: MAIL_SENDER,
     to: target,
     subject,
     text: message,

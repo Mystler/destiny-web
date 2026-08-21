@@ -2,9 +2,9 @@ import { fail, redirect } from "@sveltejs/kit";
 import type { Actions } from "./$types";
 import { resolve } from "$app/paths";
 import { writeFileSync } from "node:fs";
-import { env } from "$env/dynamic/private";
 import { execSync } from "node:child_process";
 import { sendMail } from "$lib/server/mailer";
+import { AGES_DIR, AGEUPLOAD_DIR, MAIL_ADMIN, MAIL_TEST_MODE, SDL_DIR } from "$env/static/private";
 
 export const actions = {
   default: async ({ request, locals }) => {
@@ -31,15 +31,15 @@ export const actions = {
     }
 
     // Store files
-    writeFileSync(`${env.AGEUPLOAD_DIR}/${agefile.name}`, Buffer.from(await agefile.arrayBuffer()));
+    writeFileSync(`${AGEUPLOAD_DIR}/${agefile.name}`, Buffer.from(await agefile.arrayBuffer()));
     if (sdlfile && sdlfile.name)
-      writeFileSync(`${env.AGEUPLOAD_DIR}/${sdlfile.name}`, Buffer.from(await sdlfile.arrayBuffer()));
+      writeFileSync(`${AGEUPLOAD_DIR}/${sdlfile.name}`, Buffer.from(await sdlfile.arrayBuffer()));
 
     // Send mail to admin
     let diffAge: string;
     try {
       diffAge =
-        execSync(`git diff --no-index "${env.AGES_DIR}/${agefile.name}" "${env.AGEUPLOAD_DIR}/${agefile.name}" 2>&1`)
+        execSync(`git diff --no-index "${AGES_DIR}/${agefile.name}" "${AGEUPLOAD_DIR}/${agefile.name}" 2>&1`)
           .toString()
           .trim() || "No changes in .age";
     } catch {
@@ -48,7 +48,7 @@ export const actions = {
     let diffSdl: string;
     try {
       diffSdl = sdlfile.name
-        ? execSync(`git diff --no-index "${env.SDL_DIR}/${sdlfile.name}" "${env.AGEUPLOAD_DIR}/${sdlfile.name}" 2>&1`)
+        ? execSync(`git diff --no-index "${SDL_DIR}/${sdlfile.name}" "${AGEUPLOAD_DIR}/${sdlfile.name}" 2>&1`)
             .toString()
             .trim() || "No changes in .sdl, probably not on server."
         : "";
@@ -56,10 +56,10 @@ export const actions = {
       diffSdl = "Couldn't diff .sdl";
     }
     const message = `${locals.user.username} (${locals.user.email}) uploaded ${agefile.name} with ${sdlfile.name || "no SDL"}.\n\n${diffAge}\n\n${diffSdl}`;
-    if (env.MAIL_TEST_MODE === "true") {
+    if (MAIL_TEST_MODE === "true") {
       console.log(message);
     } else {
-      sendMail(env.MAIL_ADMIN, "[DestinyURU] Age Uploaded", message);
+      sendMail(MAIL_ADMIN, "[DestinyURU] Age Uploaded", message);
     }
 
     return {

@@ -12,10 +12,15 @@
 <div class="p-1">
   <p>Here is a list of the currently supported fan ages and their unique sequence prefix numbers.</p>
   <p>
+    These ages can be visited on Destiny, but be aware that you still need to get the game files for them yourself and
+    put them into the game folder in order to actually play there.
+  </p>
+  <p>
     If you are logged into the site, you can upload your own fan age using the <a
       href={resolve("/(authenticated)/age-upload")}>Age Uploader</a
-    > form. I will add it once I have processed your age.
+    > form. I will add it to this list once I have processed your age.
   </p>
+  <p>Sequence prefixes below 100 should be considered reserved by Cyan and not used for fan ages.</p>
   <table class="mx-auto text-left">
     <tbody>
       <tr><td>101</td><td>learningcurve</td></tr>
@@ -78,6 +83,6 @@
   }
 
   td {
-    padding: 4px;
+    padding: 4px 8px;
   }
 </style>

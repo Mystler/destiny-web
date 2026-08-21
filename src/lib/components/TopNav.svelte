@@ -5,7 +5,10 @@
   import { page } from "$app/state";
 </script>
 
-<div transition:slide class="mb-6 flex justify-between border-b border-b-slate-500 bg-slate-950 px-4 py-2">
+<div
+  transition:slide
+  class="top-0 mb-6 flex justify-between border-b border-b-slate-500 bg-slate-950 px-4 py-2 portrait:sticky"
+>
   <div class="menu flex items-center gap-8">
     <a href={resolve("/")} class="group flex items-center gap-2">
       <img src={logo} alt="Logo" class="w-16 not-group-hover:opacity-80" />

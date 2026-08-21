@@ -11,7 +11,7 @@
 
 <h1>How To Play</h1>
 
-<div class="p-1">
+<div class="flex flex-col gap-2 p-1">
   <p>
     For DestinyURU, you are expected to bring your own client. As such, the shard has no fileserver or installer that
     will get all of the game files for you. However, you are not expected to know everything about URU clients, so there
@@ -19,7 +19,7 @@
   </p>
   <div class="grid gap-2 md:grid-cols-2">
     <Card>
-      <h3>Using GetUru</h3>
+      <h3 id="get-uru">Using GetUru</h3>
       <p>
         With the help of the <a href="https://github.com/Hoikas/GetUru" target="_blank" rel="noopener">GetUru</a> script by
         Hoikas, you can get the latest H-uru client and assets for the game and play on Destiny with full automation. This
@@ -47,7 +47,7 @@
       </p>
     </Card>
     <Card>
-      <h3>Compile your own Client</h3>
+      <h3 id="compile-client">Compile your own Client</h3>
       <p>
         If you don't use GetUru, then you will have to source and build the client yourself. This is the original "bring
         your own client" approach, intended for developers. Thus, if this is your intended option, I would assume you
@@ -67,9 +67,8 @@
           type, and uuid) has to match the default values.
         </li>
         <li>
-          Since Destiny does not have a dataserver, you will have to launch the game with the "/LocalData" command-line
-          argument. This will require you to build the client as an internal client (the default when building
-          H-uru/Plasma).
+          Since Destiny does not have a dataserver, you will have to launch the game with the <code>/LocalData</code> command-line
+          argument. This will require you to build the client as an internal client (the default when building H-uru/Plasma).
         </li>
         <li>
           Lastly, you will need the correct <a href={asset("/server.ini")} download>server.ini</a> file for the Destiny shard.
@@ -77,4 +76,43 @@
       </ul>
     </Card>
   </div>
+  <hr />
+  <Card>
+    <h3 id="tips">Tips & Tricks</h3>
+    <p>Once you are on Destiny with an internal client, here are some things you might want to know:</p>
+    <ul class="list-inside list-disc">
+      <li>
+        Destiny allows multiple logins on one account. Yes, if you want to test multiplayer elements, you do not need to
+        register a second account. You can just launch a second client and select a different avatar.
+      </li>
+      <li>
+        You can open a Plasma Developer Console using the Tilde <code>~</code> key on US keyboard layouts. This varies
+        on other keyboard layouts. For German keyboards it is the <code>ö</code> key. Entering
+        <code>Console.CreateBriefDocumentation docs.html</code> will create a docs.html file in your client folder with a
+        documentation for available commands. Use them carefully and at your own risk if you do not understand them.
+      </li>
+      <li>
+        For age testers, the most useful console commands will be <code>Net.LinkWithOriginalBook</code> to go to a
+        persistent personal instance of your age or <code>Net.LinkToAge</code> for a temporary instance. It is not recommended
+        to use Net.LinkToAge with original Cyan ages, but note that linking to original ages with console commands is generally
+        subject to quirks because of how the game's scripts customize linking rules for various circumstances. If you want
+        original behavior for an original age, you should use the original way of getting there.
+      </li>
+      <li>
+        You can go to another player's age by using <code>Net.LinkToPlayersAge</code> with their KI number. This should be
+        useful when wanting to test your fan age in multiplayer as well; just make sure to actually give the other player
+        your age files.
+      </li>
+      <li>
+        A <code>/party</code> chat command might be set up to go to the original Destiny neighborhood. It can also be set
+        to go to other places for easy meet ups.
+      </li>
+      <li>
+        If your login is already saved properly in the client and you don't want to go through the launcher process
+        every time or see the intro videos, the command line options <code>/SkipLoginDialog</code> and
+        <code>/SkipIntroMovies</code>
+        may be of interest to you. Just add them alongside <code>/LocalData</code> to your shortcut.
+      </li>
+    </ul>
+  </Card>
 </div>

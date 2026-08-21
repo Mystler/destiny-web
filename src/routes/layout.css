@@ -111,6 +111,10 @@
     @apply my-4 text-amber-300;
   }
 
+  code {
+    @apply bg-slate-700 px-1;
+  }
+
   .error {
     @apply text-red-600;
   }

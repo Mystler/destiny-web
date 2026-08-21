@@ -20,7 +20,10 @@
       href={resolve("/(authenticated)/age-upload")}>Age Uploader</a
     > form. I will add it to this list once I have processed your age.
   </p>
-  <p>Sequence prefixes below 100 should be considered reserved by Cyan and not used for fan ages.</p>
+  <p>
+    Sequence prefixes below 100 should be considered reserved by Cyan and not used for fan ages. Likewise, do not use
+    numbers at 32768 or higher.
+  </p>
   <table class="mx-auto text-left">
     <tbody>
       <tr><td>101</td><td>learningcurve</td></tr>
@@ -37,6 +40,7 @@
       <tr><td>620</td><td>ReischuApartment</td></tr>
       <tr><td>888</td><td>Puput</td></tr>
       <tr><td>1234</td><td>GoMePubNew</td></tr>
+      <tr><td>1236</td><td>ChisoPreniv</td></tr>
       <tr><td>1618</td><td>GahlonRahm</td></tr>
       <tr><td>3183</td><td>Sahnkep</td></tr>
       <tr><td>5343</td><td>TsoidahlPrad</td></tr>
@@ -70,7 +74,6 @@
       <tr><td>22100</td><td>Kalamee</td></tr>
       <tr><td>30305</td><td>Cyrill</td></tr>
       <tr><td>40006</td><td>GoMePubNew</td></tr>
-      <tr><td>40015</td><td>ChisoPreniv</td></tr>
     </tbody>
   </table>
 </div>

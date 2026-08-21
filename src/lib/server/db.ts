@@ -182,7 +182,7 @@ export async function getUserAvatars(authId: number) {
       Online: boolean;
       Location: string;
     }[]
-  >`SELECT p."PlayerIdx", p."PlayerName", n."Int32_1" as Online, n."String64_1" as Location
+  >`SELECT p."PlayerIdx", p."PlayerName", n."Int32_1" as "Online", n."String64_1" as "Location"
       FROM auth."Players" p
       JOIN auth."Accounts" a ON a."AcctUuid" = p."AcctUuid"
       LEFT JOIN vault."Nodes" n ON n."NodeType"=23 AND n."Uint32_1" = p."PlayerIdx"

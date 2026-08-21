@@ -47,7 +47,7 @@
 <div class="p-1">
   <h1>What is DestinyURU?</h1>
   <p>
-    The Destiny shard is an <b>Myst Online: URU Live</b> server that follows the philosophy that you can
+    The Destiny shard is a <b>Myst Online: URU Live</b> server that follows the philosophy that you can
     <b>bring your own client</b>.
   </p>
   <p>

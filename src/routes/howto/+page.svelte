@@ -57,7 +57,7 @@
         The recommended client for Destiny is any client that is based on the <a
           href="https://github.com/H-uru/Plasma"
           target="_blank"
-          rel="noopener">H'uru/Plasma</a
+          rel="noopener">H-uru/Plasma</a
         > fork. See that GitHub page for more information.
       </p>
       <p>The following additional points are required to play with a custom client:</p>

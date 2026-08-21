@@ -10,7 +10,7 @@
 <h1>Fan Ages</h1>
 
 <div class="p-1">
-  <p>Here is a list of the currently available fan ages and their unique sequence prefix numbers.</p>
+  <p>Here is a list of the currently supported fan ages and their unique sequence prefix numbers.</p>
   <p>
     If you are logged into the site, you can upload your own fan age using the <a
       href={resolve("/(authenticated)/age-upload")}>Age Uploader</a

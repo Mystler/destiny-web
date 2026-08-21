@@ -41,8 +41,7 @@
   {/if}
 
   <p class="mt-8">
-    Please note that you will only need to upload these files again if any of these specific two files changes.<br />
-    For .age file this means adding new PRP pages. For .sdl files this means that you have manually added new variables or
-    versions.
+    Please note that you will only need to upload these files again if any of these specific two files change.<br />
+    For .age file this means adding new PRP pages. For .sdl files this means that you have manually added new versions.
   </p>
 </div>

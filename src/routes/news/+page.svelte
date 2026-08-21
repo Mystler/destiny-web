@@ -13,7 +13,7 @@
   <Card date="2026-08-21 | Mystler">
     <p>Hi! Welcome to the new website for Destiny!</p>
     <p>
-      I have taken some time to create a new website. The old forum was overkill for the simply offering registration
+      I have taken some time to create a new website. The old forum was overkill for simply offering registration
       services and information to play. Discussion was not really happening much and tends to work better on services
       like Discord. The forum also came with a lot of fighting AI crawlers that love phpbb giving them so many links to
       scrape, with and - more often - without consent.

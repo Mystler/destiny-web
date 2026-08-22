@@ -113,6 +113,11 @@
         <code>/SkipIntroMovies</code>
         may be of interest to you. Just add them alongside <code>/LocalData</code> to your shortcut.
       </li>
+      <li>
+        You can also set the launch arguments <code>/PlayerId</code> with your KI number and
+        <code>/Age</code> with an age name to start directly in an age of your choice. Example:
+        <code>/PlayerId 12345 /Age Personal</code>
+      </li>
     </ul>
   </Card>
 </div>

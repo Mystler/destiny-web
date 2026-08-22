@@ -73,7 +73,7 @@
       <tr><td>22099</td><td>TestAge</td></tr>
       <tr><td>22100</td><td>Kalamee</td></tr>
       <tr><td>30305</td><td>Cyrill</td></tr>
-      <tr><td>40006</td><td>GoMePubNew</td></tr>
+      <tr><td>40004</td><td>VeeTsah</td></tr>
     </tbody>
   </table>
 </div>

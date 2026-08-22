@@ -30,17 +30,19 @@
         ready to go!
       </p>
       <p>
-        Should you be on a different platform, you may have to consider building your own client instead or recreating
-        what it does on your own.
+        GetUru also has a shell script for other platforms. You can try using that via <code
+          >./get_uru_client --destiny</code
+        >. <code>--help</code> will provide information about other optional settings.
       </p>
       <p>
-        GetUru downloads the latest <a
+        GetUru effectively downloads the latest <a
           href="https://github.com/H-uru/Plasma/releases/tag/last-successful"
           target="_blank"
           rel="noopener">precompiled H-uru/Plasma client</a
         >, the game assets from
         <a href="https://github.com/H-uru/moul-assets" target="_blank" rel="noopener">H-uru/moul-assets</a>, and
-        Destiny's <a href={asset("/server.ini")} download>server.ini</a>.
+        Destiny's <a href={asset("/server.ini")} download>server.ini</a>. Then, it creates a shortcut with the
+        <code>/LocalData</code> option.
       </p>
       <p class="my-4 text-center">
         <ButtonLink href="https://github.com/Hoikas/GetUru" target="_blank" rel="noopener">GetUru</ButtonLink>

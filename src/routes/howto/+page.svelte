@@ -38,9 +38,9 @@
           href="https://github.com/H-uru/Plasma/releases/tag/last-successful"
           target="_blank"
           rel="noopener">precompiled H-uru/Plasma client</a
-        >
-        and the game assets from
-        <a href="https://github.com/H-uru/moul-assets" target="_blank" rel="noopener">H-uru/moul-assets</a>.
+        >, the game assets from
+        <a href="https://github.com/H-uru/moul-assets" target="_blank" rel="noopener">H-uru/moul-assets</a>, and
+        Destiny's <a href={asset("/server.ini")} download>server.ini</a>.
       </p>
       <p class="my-4 text-center">
         <ButtonLink href="https://github.com/Hoikas/GetUru" target="_blank" rel="noopener">GetUru</ButtonLink>
@@ -61,7 +61,7 @@
         > fork. See that GitHub page for more information.
       </p>
       <p>The following additional points are required to play with a custom client:</p>
-      <ul class="list-inside list-disc">
+      <ul class="mb-2 list-inside list-disc">
         <li>
           In order for Destiny to not reject your client, the CMake product information (branch id, build id, build
           type, and uuid) has to match the default values.
@@ -74,6 +74,13 @@
           Lastly, you will need the correct <a href={asset("/server.ini")} download>server.ini</a> file for the Destiny shard.
         </li>
       </ul>
+      <p>
+        If you need to get the base game assets for your client, you can get them from the compiled folder in the <a
+          href="https://github.com/H-uru/moul-assets"
+          target="_blank"
+          rel="noopener">H-uru/moul-assets</a
+        > repository.
+      </p>
     </Card>
   </div>
   <hr />

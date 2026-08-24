@@ -3,10 +3,19 @@
   import { slide } from "$lib/assets/Animatons";
   import ButtonLink from "$lib/components/ButtonLink.svelte";
   import Card from "$lib/components/Card.svelte";
+  import { onMount } from "svelte";
   import { getAvatars, updateEmail, updatePassword } from "./data.remote.js";
 
   let { data } = $props();
   let showForm = $state<"email" | "password">();
+  let updateEmailResult = $derived(updateEmail.result);
+  let updatePasswordResult = $derived(updatePassword.result);
+  onMount(() => {
+    updateEmailResult = undefined;
+    updatePasswordResult = undefined;
+    updateEmail.element?.reset();
+    updatePassword.element?.reset();
+  });
 </script>
 
 <svelte:head>
@@ -21,20 +30,20 @@
 {#each updateEmail.fields.allIssues() as issue (issue.path)}
   <p class="error">{issue.message}</p>
 {/each}
-{#if updateEmail.result?.success}
-  <p class="success">{updateEmail.result.success}</p>
+{#if updateEmailResult?.success}
+  <p class="success">{updateEmailResult.success}</p>
 {/if}
-{#if updateEmail.result?.error}
-  <p class="error">{updateEmail.result.error}</p>
+{#if updateEmailResult?.error}
+  <p class="error">{updateEmailResult.error}</p>
 {/if}
 {#each updatePassword.fields.allIssues() as issue (issue.path)}
   <p class="error">{issue.message}</p>
 {/each}
-{#if updatePassword.result?.success}
-  <p class="success">{updatePassword.result.success}</p>
+{#if updatePasswordResult?.success}
+  <p class="success">{updatePasswordResult.success}</p>
 {/if}
-{#if updatePassword.result?.error}
-  <p class="error">{updatePassword.result.error}</p>
+{#if updatePasswordResult?.error}
+  <p class="error">{updatePasswordResult.error}</p>
 {/if}
 
 <p>

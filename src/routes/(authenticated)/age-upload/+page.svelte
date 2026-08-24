@@ -1,7 +1,13 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
+  import { onMount } from "svelte";
+  import { uploadAge } from "./ageUpload.remote";
 
-  let { form } = $props();
+  let uploadAgeResult = $derived(uploadAge.result);
+  onMount(() => {
+    uploadAge.element?.reset();
+    uploadAgeResult = undefined;
+  });
 </script>
 
 <svelte:head>
@@ -12,7 +18,7 @@
 <h1>Age Uploader</h1>
 
 <div class="p-1">
-  {#if !form?.success}
+  {#if !uploadAgeResult?.success}
     <p>Here you can submit your own age if you want to test it on Destiny!</p>
     <p>
       In order to provide the age for play, the server needs your <i>.age</i> and, if you have one, your <i>.sdl</i>
@@ -22,10 +28,10 @@
       <a href={resolve("/about")}>reach out to me</a>!
     </p>
 
-    <form class="mt-8 flex flex-col items-center gap-2 text-left" enctype="multipart/form-data" method="POST">
-      {#if form?.error}
-        <p class="error">{form.error}</p>
-      {/if}
+    <form class="mt-8 flex flex-col items-center gap-2 text-left" enctype="multipart/form-data" {...uploadAge}>
+      {#each uploadAge.fields.allIssues() as issue (issue.path)}
+        <p class="error">{issue.message}</p>
+      {/each}
       <label>
         Age File<br />
         <input type="file" name="agefile" required />
@@ -37,7 +43,7 @@
       <input type="submit" value="Submit" />
     </form>
   {:else}
-    <p class="success">{form.success}</p>
+    <p class="success">{uploadAgeResult.success}</p>
   {/if}
 
   <p class="mt-8">

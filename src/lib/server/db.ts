@@ -170,9 +170,6 @@ export async function changeEmail(id: number, password: string, email: string): 
   return false;
 }
 
-/**
- * Grab the avatar list for the account.
- */
 export async function getUserAvatars(authId: number) {
   if (!sql) return null;
   return await sql<
@@ -185,6 +182,28 @@ export async function getUserAvatars(authId: number) {
   >`SELECT p."PlayerIdx", p."PlayerName", n."Int32_1" as "Online", n."String64_1" as "Location"
       FROM auth."Players" p
       JOIN auth."Accounts" a ON a."AcctUuid" = p."AcctUuid"
-      LEFT JOIN vault."Nodes" n ON n."NodeType"=23 AND n."Uint32_1" = p."PlayerIdx"
+      LEFT JOIN vault."Nodes" n ON n."NodeType" = 23 AND n."Uint32_1" = p."PlayerIdx"
       WHERE a."idx" = ${authId}`;
+}
+
+export async function getOnlineAvatars() {
+  if (!sql) return null;
+  return await sql<
+    {
+      PlayerIdx: number;
+      PlayerName: string;
+      Location: string;
+    }[]
+  >`SELECT "Uint32_1" as "PlayerIdx", "IString64_1" as "PlayerName", "String64_1" as "Location"
+      FROM vault."Nodes" WHERE "NodeType" = 23 and "Int32_1" = 1`;
+}
+
+export async function getServerStats() {
+  if (!sql) return null;
+  const accounts: number = (await sql`SELECT COUNT(*) AS "Accounts" FROM auth."Accounts"`)[0].Accounts;
+  const players: number = (await sql`SELECT COUNT(*) AS "Players" FROM auth."Players"`)[0].Players;
+  return {
+    accounts,
+    players,
+  };
 }

@@ -88,6 +88,9 @@
 
 <div class="mt-16">
   <ButtonLink href={resolve("/(authenticated)/age-upload")}>Age Uploader</ButtonLink>
+  {#if data.admin}
+    <ButtonLink href={resolve("/(authenticated)/admin")}>Admin Panel</ButtonLink>
+  {/if}
 </div>
 
 <div class="mx-auto mt-16 max-w-xl p-1">

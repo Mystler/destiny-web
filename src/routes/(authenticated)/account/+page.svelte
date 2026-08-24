@@ -3,8 +3,9 @@
   import { slide } from "$lib/assets/Animatons";
   import ButtonLink from "$lib/components/ButtonLink.svelte";
   import Card from "$lib/components/Card.svelte";
+  import { getAvatars, updateEmail, updatePassword } from "./data.remote.js";
 
-  let { data, form } = $props();
+  let { data } = $props();
   let showForm = $state<"email" | "password">();
 </script>
 
@@ -17,11 +18,23 @@
 
 <p>Welcome {data.loggedIn}!</p>
 
-{#if form?.error}
-  <p class="error">{form.error}</p>
+{#each updateEmail.fields.allIssues() as issue (issue.path)}
+  <p class="error">{issue.message}</p>
+{/each}
+{#if updateEmail.result?.success}
+  <p class="success">{updateEmail.result.success}</p>
 {/if}
-{#if form?.success}
-  <p class="success">{form.success}</p>
+{#if updateEmail.result?.error}
+  <p class="error">{updateEmail.result.error}</p>
+{/if}
+{#each updatePassword.fields.allIssues() as issue (issue.path)}
+  <p class="error">{issue.message}</p>
+{/each}
+{#if updatePassword.result?.success}
+  <p class="success">{updatePassword.result.success}</p>
+{/if}
+{#if updatePassword.result?.error}
+  <p class="error">{updatePassword.result.error}</p>
 {/if}
 
 <p>
@@ -34,31 +47,31 @@
 </p>
 
 {#if showForm === "email"}
-  <form transition:slide method="POST" action="?/change_email" class="flex flex-col items-center gap-2 text-left">
+  <form transition:slide {...updateEmail} class="flex flex-col items-center gap-2 text-left">
     <p class="text-xs">Current E-Mail Address:<br />{data.email}</p>
     <label>
       Password:<br />
-      <input type="password" name="password" required />
+      <input required {...updateEmail.fields.password.as("password")} />
     </label>
     <label>
       New E-Mail Address:<br />
-      <input type="email" name="email" required />
+      <input required {...updateEmail.fields.email.as("email")} />
     </label>
     <input type="submit" value="Confirm" />
   </form>
 {:else if showForm === "password"}
-  <form transition:slide method="POST" action="?/change_password" class="flex flex-col items-center gap-2 text-left">
+  <form transition:slide {...updatePassword} class="flex flex-col items-center gap-2 text-left">
     <label>
       Old Password:<br />
-      <input type="password" name="old_password" required />
+      <input required {...updatePassword.fields._old_password.as("password")} />
     </label>
     <label>
       New Password:<br />
-      <input type="password" name="new_password" required />
+      <input required {...updatePassword.fields._new_password.as("password")} />
     </label>
     <label>
       Confirm Password:<br />
-      <input type="password" name="password_confirm" required />
+      <input required {...updatePassword.fields._password_confirm.as("password")} />
     </label>
     <input type="submit" value="Confirm" />
   </form>
@@ -71,11 +84,12 @@
 <div class="mx-auto mt-16 max-w-xl p-1">
   <Card>
     <h3>My Avatars</h3>
-    {#if !data.avatars || data.avatars.length === 0}
+    {const avatars = $derived(await getAvatars())}
+    {#if !avatars || avatars.length === 0}
       <p>None! You should log into Destiny and make one!</p>
     {:else}
       <div class="flex flex-col gap-2">
-        {#each data.avatars as avatar (avatar.PlayerIdx)}
+        {#each avatars as avatar (avatar.PlayerIdx)}
           <div class="flex flex-wrap items-center gap-4">
             <div>{avatar.Online ? "🟢" : "🔴"} {avatar.PlayerName}</div>
             <div class="text-xs text-slate-500">(KI# {avatar.PlayerIdx})</div>

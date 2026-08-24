@@ -1,5 +1,5 @@
 <script lang="ts">
-  let { form } = $props();
+  import { setNewPassword } from "./reset.remote";
 </script>
 
 <svelte:head>
@@ -9,26 +9,20 @@
 
 <h1>Reset Your Password</h1>
 
-<form method="POST" class="flex flex-col items-center gap-2 text-left">
+<form class="flex flex-col items-center gap-2 text-left" {...setNewPassword}>
   <label>
     New Password:<br />
-    <input type="password" name="password" required />
+    <input required {...setNewPassword.fields._new_password.as("password")} />
   </label>
   <label>
     Confirm Password:<br />
-    <input type="password" name="password_confirm" required />
+    <input required {...setNewPassword.fields._password_confirm.as("password")} />
   </label>
-  {#if form?.missing}
-    <p class="error">All fields need to be filled out!</p>
-  {/if}
-  {#if form?.passwordMismatch}
-    <p class="error">Your password confirmation did not match!</p>
-  {/if}
-  {#if form?.passwordTooLong}
-    <p class="error">Sorry, URU only supports password up to 15 characters in length!</p>
-  {/if}
-  {#if form?.fail}
-    <p class="error">Your password could not be set!</p>
+  {#each setNewPassword.fields.allIssues() as issue (issue.path)}
+    <p class="error">{issue.message}</p>
+  {/each}
+  {#if setNewPassword.result?.error}
+    <p class="error">{setNewPassword.result.error}</p>
   {/if}
   <input type="submit" />
 </form>

@@ -69,6 +69,7 @@
   input[type="password"],
   input[type="email"],
   input[type="file"],
+  input:not([type]),
   select {
     @apply m-1 rounded-lg border-2 border-amber-400 bg-slate-800 px-4 py-2;
     @apply outline-none hover:border-amber-300 hover:bg-slate-700 focus:border-amber-300 focus:bg-slate-700;
@@ -86,6 +87,7 @@
     input[type="password"],
     input[type="email"],
     input[type="file"],
+    input:not([type]),
     select {
       @apply mx-0;
     }

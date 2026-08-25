@@ -69,6 +69,7 @@
   input[type="password"],
   input[type="email"],
   input[type="file"],
+  input[type="search"],
   input:not([type]),
   select {
     @apply m-1 rounded-lg border-2 border-amber-400 bg-slate-800 px-4 py-2;
@@ -87,6 +88,7 @@
     input[type="password"],
     input[type="email"],
     input[type="file"],
+    input[type="search"],
     input:not([type]),
     select {
       @apply mx-0;

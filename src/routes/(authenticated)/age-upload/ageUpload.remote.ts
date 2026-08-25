@@ -15,6 +15,8 @@ export const uploadAge = form(
     const { locals } = getRequestEvent();
     if (!locals.user) return error(401, "Unauthorized");
 
+    if (agefile.name.includes('"') || (sdlfile && sdlfile.name.includes('"'))) return error(400, "WTF!");
+
     // Store files
     writeFileSync(`${AGEUPLOAD_DIR}/${agefile.name}`, Buffer.from(await agefile.arrayBuffer()));
     if (sdlfile && sdlfile.name)
@@ -23,12 +25,14 @@ export const uploadAge = form(
     // Send mail to admin
     let diffAge: string;
     try {
+      // HAX time: Git diff returns a non-zero exit code on changes, so our actual diff output will be in the catch block
+      // Reroute error into stdout
       diffAge =
         execSync(`git diff --no-index "${AGES_DIR}/${agefile.name}" "${AGEUPLOAD_DIR}/${agefile.name}" 2>&1`)
           .toString()
           .trim() || "No changes in .age";
-    } catch {
-      diffAge = "Coudln't diff .age, probably not on server.";
+    } catch (error) {
+      diffAge = (error as { stdout: Buffer | string }).stdout.toString();
     }
     let diffSdl: string;
     try {
@@ -36,10 +40,10 @@ export const uploadAge = form(
         sdlfile && sdlfile.name
           ? execSync(`git diff --no-index "${SDL_DIR}/${sdlfile.name}" "${AGEUPLOAD_DIR}/${sdlfile.name}" 2>&1`)
               .toString()
-              .trim() || "No changes in .sdl, probably not on server."
+              .trim() || "No changes in .sdl"
           : "";
-    } catch {
-      diffSdl = "Couldn't diff .sdl";
+    } catch (error) {
+      diffSdl = (error as { stdout: Buffer | string }).stdout.toString();
     }
     const message = `${locals.user.username} (${locals.user.email}) uploaded ${agefile.name} with ${sdlfile?.name || "no SDL"}.\n\n${diffAge}\n\n${diffSdl}`;
     if (MAIL_TEST_MODE === "true") {

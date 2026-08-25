@@ -186,6 +186,24 @@ export async function getUserAvatars(authId: number) {
       WHERE a."idx" = ${authId}`;
 }
 
+export async function getAllPlayers() {
+  if (!sql) return null;
+  return await sql<
+    {
+      PlayerIdx: number;
+      PlayerName: string;
+      Online: boolean;
+      Location: string;
+      UserName: string;
+    }[]
+  >`SELECT p."PlayerIdx", p."PlayerName", n."Int32_1" as "Online", n."String64_1" as "Location", wa."name" as "UserName"
+      FROM auth."Players" p
+      JOIN auth."Accounts" a ON a."AcctUuid" = p."AcctUuid"
+      LEFT JOIN web."Accounts" wa ON lower(wa."name") = lower(a."Login")
+      LEFT JOIN vault."Nodes" n ON n."NodeType" = 23 AND n."Uint32_1" = p."PlayerIdx"
+      ORDER BY "Online" DESC, p."PlayerName"`;
+}
+
 export async function getOnlineAvatars() {
   if (!sql) return null;
   return await sql<

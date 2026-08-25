@@ -11,7 +11,7 @@
 >
   <div class="menu flex items-center gap-8">
     <a href={resolve("/")} class="group flex items-center gap-2">
-      <img src={logo} alt="Logo" class="w-16 not-group-hover:opacity-80" />
+      <img src={logo} alt="Logo" class="w-16 group-hover:brightness-120" />
       <div class="font-semibold">DestinyURU</div>
     </a>
     <div class="hidden items-center gap-8 md:flex">

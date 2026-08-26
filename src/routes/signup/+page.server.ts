@@ -19,12 +19,17 @@ export const actions = {
       missing: false,
       passwordMismatch: false,
       passwordTooLong: false,
+      emailUser: false,
     };
     let validationFail = false;
 
     if (!login || !email || !password || !passwordConfirm || !recaptchaToken) {
       validationFail = true;
       failReturn.missing = true;
+    }
+    if (login.match(/.+@.+\..+/)) {
+      validationFail = true;
+      failReturn.emailUser = true;
     }
     if (password !== passwordConfirm) {
       validationFail = true;

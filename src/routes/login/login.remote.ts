@@ -4,9 +4,15 @@ import { loginUser } from "$lib/server/db";
 import { redirect } from "@sveltejs/kit";
 import * as v from "valibot";
 
+const EmailSchema = v.pipe(v.string(), v.email());
+
 export const login = form(
   v.object({
-    username: v.pipe(v.string(), v.nonEmpty("Missing username!")),
+    username: v.pipe(
+      v.string(),
+      v.nonEmpty("Missing username!"),
+      v.check((x) => !v.is(EmailSchema, x), "You used an e-mail instead of a username."),
+    ),
     _password: v.pipe(v.string(), v.nonEmpty("Missing password!")),
   }),
   async ({ username, _password }) => {

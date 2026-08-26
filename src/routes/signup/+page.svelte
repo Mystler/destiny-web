@@ -36,6 +36,9 @@
     {#if form?.missing}
       <p class="error">All fields need to be filled out!</p>
     {/if}
+    {#if form?.emailUser}
+      <p class="error">Please do not use an e-mail address as your username.</p>
+    {/if}
     {#if form?.passwordMismatch}
       <p class="error">Your password confirmation did not match!</p>
     {/if}

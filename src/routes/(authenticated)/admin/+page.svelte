@@ -5,10 +5,12 @@
   import { slide } from "$lib/assets/Animatons.js";
   import Card from "$lib/components/Card.svelte";
   import {
+    addSequencePrefix,
     copyAgeFile,
     copySdlFile,
     getOnlineList,
     getPlayerList,
+    removeSequencePrefix,
     restartDirtsand,
     viewAgeUpload,
   } from "./admin.remote";
@@ -152,6 +154,52 @@
             />
           {/if}
         {/if}
+      </div>
+    </Card>
+  </div>
+  <div class="p-1">
+    <Card>
+      <h3>Sequence Prefixes</h3>
+      <div class="flex flex-col">
+        {#each addSequencePrefix.fields.issues() as issue (issue.path)}
+          <p class="error">{issue.message}</p>
+        {/each}
+        {#if addSequencePrefix.result?.error}
+          <p class="error">{addSequencePrefix.result.error}</p>
+        {/if}
+        {#if addSequencePrefix.result?.success}
+          <p class="success">{addSequencePrefix.result.success}</p>
+        {/if}
+        <form {...addSequencePrefix}>
+          <label
+            >Sequence Prefix: <input
+              class="w-32"
+              required
+              {...addSequencePrefix.fields.seqPrefix.as("number")}
+            /></label
+          >
+          <label>Age: <input required {...addSequencePrefix.fields.ageName.as("text")} /></label>
+          <input type="submit" value="Add" />
+        </form>
+        {#each removeSequencePrefix.fields.issues() as issue (issue.path)}
+          <p class="error">{issue.message}</p>
+        {/each}
+        {#if removeSequencePrefix.result?.error}
+          <p class="error">{removeSequencePrefix.result.error}</p>
+        {/if}
+        {#if removeSequencePrefix.result?.success}
+          <p class="success">{removeSequencePrefix.result.success}</p>
+        {/if}
+        <form {...removeSequencePrefix}>
+          <label
+            >Sequence Prefix: <input
+              class="w-32"
+              required
+              {...removeSequencePrefix.fields.seqPrefix.as("number")}
+            /></label
+          >
+          <input type="submit" value="Remove" />
+        </form>
       </div>
     </Card>
   </div>

@@ -14,3 +14,9 @@ CREATE TABLE "Accounts" (
 CREATE INDEX "SessionIdx" ON "Accounts" ("session_token");
 CREATE UNIQUE INDEX "UniqNameIdx" ON "Accounts" (lower("name"));
 CREATE UNIQUE INDEX "UniqEmailIdx" ON "Accounts" (lower("email"));
+
+CREATE TABLE "SequencePrefixes" (
+	"seqPrefix" INTEGER NOT NULL,
+	"age" VARCHAR NOT NULL,
+	PRIMARY KEY ("seqPrefix")
+);

@@ -225,3 +225,33 @@ export async function getServerStats() {
     players,
   };
 }
+
+export async function getSequencePrefixes() {
+  if (!sql) return null;
+  return await sql<
+    {
+      seqPrefix: number;
+      age: string;
+    }[]
+  >`SELECT * FROM web."SequencePrefixes" ORDER BY "seqPrefix" ASC`;
+}
+
+export async function createSequencePrefix(prefix: number, age: string) {
+  if (!sql) return false;
+  try {
+    await sql`INSERT INTO web."SequencePrefixes" VALUES (${prefix}, ${age})`;
+  } catch {
+    return false;
+  }
+  return true;
+}
+
+export async function deleteSequencePrefix(prefix: number) {
+  if (!sql) return false;
+  try {
+    await sql`DELETE FROM web."SequencePrefixes" WHERE "seqPrefix" = ${prefix}`;
+  } catch {
+    return false;
+  }
+  return true;
+}

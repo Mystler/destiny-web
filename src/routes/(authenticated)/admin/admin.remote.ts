@@ -1,6 +1,6 @@
 import * as v from "valibot";
 import { command, form, getRequestEvent, query } from "$app/server";
-import { getAllPlayers, getOnlineAvatars } from "$lib/server/db";
+import { createSequencePrefix, deleteSequencePrefix, getAllPlayers, getOnlineAvatars } from "$lib/server/db";
 import { error } from "@sveltejs/kit";
 import { execSync } from "node:child_process";
 import { AGES_DIR, AGEUPLOAD_DIR, DIRTSAND_RESTART_COMMAND, SDL_DIR } from "$env/static/private";
@@ -96,3 +96,31 @@ export const restartDirtsand = command(async () => {
   console.log("Got command to restart dirtsand.");
   execSync(DIRTSAND_RESTART_COMMAND);
 });
+
+export const addSequencePrefix = form(
+  v.object({
+    seqPrefix: v.pipe(v.number(), v.integer("Sequence Prefix must be an integer!")),
+    ageName: v.pipe(v.string(), v.nonEmpty("Missing age name!")),
+  }),
+  async ({ seqPrefix, ageName }) => {
+    const event = getRequestEvent();
+    if (!event.locals.user?.admin) return error(401, "Unauthorized");
+
+    if (!createSequencePrefix(seqPrefix, ageName))
+      return { error: "Failed to add sequence prefix. This one may already exist." };
+    return { success: "Age added." };
+  },
+);
+
+export const removeSequencePrefix = form(
+  v.object({
+    seqPrefix: v.pipe(v.number(), v.integer("Sequence Prefix must be an integer!")),
+  }),
+  async ({ seqPrefix }) => {
+    const event = getRequestEvent();
+    if (!event.locals.user?.admin) return error(401, "Unauthorized");
+
+    if (!deleteSequencePrefix(seqPrefix)) return { error: "Failed to remove sequence prefix." };
+    return { success: "Age removed." };
+  },
+);

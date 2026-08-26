@@ -20,7 +20,7 @@
     </p>
     <p>
       Since I recently returned to be more active in URU again, I decided to remake the Destiny website. All of your
-      accounts have been ensured to work seemlessly with the new site. (As long as your account was ever registered with
+      accounts have been ensured to work seamlessly with the new site. (As long as your account was ever registered with
       the shard itself. There were some forum accounts that never logged in again to have their actual server account
       created, so if you happen to be one of them, you will need to register again.)
     </p>

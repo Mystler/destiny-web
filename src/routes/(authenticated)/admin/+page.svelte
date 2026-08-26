@@ -40,6 +40,7 @@
         <p>Nobody is online right now!</p>
       {:else}
         <div class="flex flex-col gap-2">
+          <div>{avatars.length} online</div>
           {#each avatars as avatar (avatar.PlayerIdx)}
             <div class="flex flex-wrap items-center gap-4">
               <div>🟢 {avatar.PlayerName}</div>

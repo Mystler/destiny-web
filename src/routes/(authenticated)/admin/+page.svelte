@@ -160,7 +160,7 @@
   <div class="p-1">
     <Card>
       <h3>Sequence Prefixes</h3>
-      <div class="flex flex-col">
+      <div class="flex flex-col text-left">
         {#each addSequencePrefix.fields.issues() as issue (issue.path)}
           <p class="error">{issue.message}</p>
         {/each}
@@ -171,14 +171,14 @@
           <p class="success">{addSequencePrefix.result.success}</p>
         {/if}
         <form {...addSequencePrefix}>
-          <label
+          <label class="text-nowrap"
             >Sequence Prefix: <input
               class="w-32"
               required
               {...addSequencePrefix.fields.seqPrefix.as("number")}
             /></label
           >
-          <label>Age: <input required {...addSequencePrefix.fields.ageName.as("text")} /></label>
+          <label class="text-nowrap">Age: <input required {...addSequencePrefix.fields.ageName.as("text")} /></label>
           <input type="submit" value="Add" />
         </form>
         {#each removeSequencePrefix.fields.issues() as issue (issue.path)}

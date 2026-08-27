@@ -195,8 +195,9 @@ export async function getAllPlayers() {
       Online: boolean;
       Location: string;
       UserName: string;
+      InstanceId: string;
     }[]
-  >`SELECT p."PlayerIdx", p."PlayerName", n."Int32_1" as "Online", n."String64_1" as "Location", wa."name" as "UserName"
+  >`SELECT p."PlayerIdx", p."PlayerName", n."Int32_1" as "Online", n."String64_1" as "Location", wa."name" as "UserName", n."Uuid_1" as "InstanceId"
       FROM auth."Players" p
       JOIN auth."Accounts" a ON a."AcctUuid" = p."AcctUuid"
       LEFT JOIN web."Accounts" wa ON lower(wa."name") = lower(a."Login")

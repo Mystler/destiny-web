@@ -201,7 +201,7 @@ export async function getAllPlayers() {
       JOIN auth."Accounts" a ON a."AcctUuid" = p."AcctUuid"
       LEFT JOIN web."Accounts" wa ON lower(wa."name") = lower(a."Login")
       LEFT JOIN vault."Nodes" n ON n."NodeType" = 23 AND n."Uint32_1" = p."PlayerIdx"
-      ORDER BY "Online" DESC, p."PlayerName"`;
+      ORDER BY "Online" DESC, lower(p."PlayerName")`;
 }
 
 export async function getOnlineAvatars() {

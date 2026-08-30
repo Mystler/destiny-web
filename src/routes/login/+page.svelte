@@ -19,6 +19,7 @@
     Password:<br />
     <input required {...login.fields._password.as("password")} />
   </label>
+  <label>Remember Me: <input {...login.fields.remember.as("checkbox")} /></label>
   {#each login.fields.allIssues() as issue (issue.path)}
     <p class="error">{issue.message}</p>
   {/each}

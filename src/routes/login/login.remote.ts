@@ -14,8 +14,9 @@ export const login = form(
       v.check((x) => !v.is(EmailSchema, x), "You used an e-mail instead of a username."),
     ),
     _password: v.pipe(v.string(), v.nonEmpty("Missing password!")),
+    remember: v.optional(v.boolean(), false),
   }),
-  async ({ username, _password }) => {
+  async ({ username, _password, remember }) => {
     const session = await loginUser(username.trim(), _password);
     if (!session) {
       return {
@@ -28,9 +29,12 @@ export const login = form(
       return { error: "This account has been banned!" };
     }
 
+    const expireDate = new Date();
+    expireDate.setFullYear(expireDate.getFullYear() + 1);
     const { cookies } = getRequestEvent();
     cookies.set("session", session, {
       path: "/",
+      expires: remember ? expireDate : undefined,
     });
 
     return redirect(303, resolve("/(authenticated)/account"));

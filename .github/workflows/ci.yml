@@ -21,6 +21,8 @@ jobs:
         with:
           node-version: lts/*
           cache: "pnpm"
+      - name: Copy .env
+        run: cp .env.example .env
       - run: pnpm i
         name: Install Dependencies
       - run: pnpm build
@@ -39,6 +41,8 @@ jobs:
         with:
           node-version: lts/*
           cache: "pnpm"
+      - name: Copy .env
+        run: cp .env.example .env
       - run: pnpm i
         name: Install Dependencies
       - run: pnpm check

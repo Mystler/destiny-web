@@ -9,7 +9,9 @@
   <p>
     DestinyURU is run by Mystler.<br />
     If you have any questions and want to reach out, the best place to do so is via Discord. My user tag is
-    <code>mystler</code>. I am also on the Cyan Worlds and OpenURU Discord servers.<br />
+    <code>mystler</code>. I am also on the
+    <a href="https://discordapp.com/invite/cyanchat" target="_blank" rel="noopener">Cyan Worlds</a>
+    and <a href="https://discord.gg/tVknpHQ" target="_blank" rel="noopener">OpenURU</a> Discord servers.<br />
     Alternatively you can send me an e-mail at <code>developer (AT) mystler (DOT) eu</code>.
   </p>
   <p>

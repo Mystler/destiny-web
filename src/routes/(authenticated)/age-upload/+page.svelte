@@ -34,11 +34,11 @@
       {/each}
       <label>
         Age File<br />
-        <input required {...uploadAge.fields.agefile.as("file")} />
+        <input required accept=".age" {...uploadAge.fields.agefile.as("file")} />
       </label>
       <label>
         SDL File <i class="text-sm text-slate-500">(only if you have one)</i><br />
-        <input {...uploadAge.fields.sdlfile.as("file")} />
+        <input accept=".sdl" {...uploadAge.fields.sdlfile.as("file")} />
       </label>
       <input type="submit" value="Submit" />
     </form>

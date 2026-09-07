@@ -27,7 +27,7 @@
       </p>
       <p>
         The script is a PowerShell script for Windows. Just follow the instructions on the GitHub page and you should be
-        ready to go!
+        ready to go! When you want to update your existing client, you can just run the same script again.
       </p>
       <p>
         GetUru also has a shell script for other platforms. You can try using that via <code
@@ -96,14 +96,14 @@
       </li>
       <li>
         You can open a Plasma Developer Console using the Tilde <code>~</code> key on US keyboard layouts. This varies
-        on other keyboard layouts. For German keyboards it is the <code>ö</code> key. Entering
+        on other keyboard layouts. For German keyboards, it is the <code>ö</code> key. Entering
         <code>Console.CreateBriefDocumentation docs.html</code> will create a docs.html file in your client folder with a
         documentation for available commands. Use them carefully and at your own risk if you do not understand them.
       </li>
       <li>
-        For age testers, the most useful console commands will be <code>Net.LinkWithOriginalBook</code> to go to a
-        persistent personal instance of your age or <code>Net.LinkToAge</code> for a temporary instance. It is not recommended
-        to use Net.LinkToAge with original Cyan ages, but note that linking to original ages with console commands is generally
+        For age testers, the most useful console commands will be <code>Net.LinkWithOriginalBook</code> to go to a persistent
+        personal instance of your age. Net.LinkToAge will create a temporary instance. It is not recommended to use Net.LinkToAge,
+        especially not with original Cyan ages, but note that linking to original ages with console commands is generally
         subject to quirks because of how the game's scripts customize linking rules for various circumstances. If you want
         original behavior for an original age, you should use the original way of getting there.
       </li>

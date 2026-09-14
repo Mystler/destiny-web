@@ -9,7 +9,24 @@
 
 <h1>News</h1>
 
-<div class="p-1">
+<div class="flex flex-col gap-2 p-1">
+  <Card date="2026-09-14 | Mystler">
+    <p>
+      Two days ago, I had to update the Personal.sdl file for Relto to a new version so it is compatible with modern
+      testing for adding new Relto pages. The file used to be an older one from TOC testing that was only supporting 30
+      pages. Alas, the dirtsand server didn't like that version upgrade and lost data in migration, which means
+      everyone's Relto has reset to the original default state. My apologies for the inconvencience. You may have to
+      re-do some personal unlocks for it if you care about them. Things that are not stored in the SDL, like your
+      unlocked books in the shelf (aside from the Cleft), will still work fine.
+    </p>
+    <p>
+      If you want to get things back more quickly, console commands can help with that. To get all Relto pages you can
+      open the console and run <code>Python.Cheat GetAllYeeshaPages 1</code>. I also have a pending pull request to
+      H-uru/master that will add
+      <code>Python.Cheat GetAllBahroWedges 1</code>
+      and <code>Python.Cheat GetAllCalendarStones 1</code> as well in a future client version.
+    </p>
+  </Card>
   <Card date="2026-08-21 | Mystler">
     <p>Hi! Welcome to the new website for Destiny!</p>
     <p>

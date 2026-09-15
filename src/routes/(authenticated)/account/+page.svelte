@@ -105,7 +105,7 @@
           <div class="flex flex-wrap items-center gap-4">
             <div>{avatar.Online ? "🟢" : "🔴"} {avatar.PlayerName}</div>
             <div class="text-xs text-slate-500">(KI# {avatar.PlayerIdx})</div>
-            {#if avatar.Location}
+            {#if avatar.Online && avatar.Location}
               <div class="text-xs text-slate-500">Currently online in {avatar.Location}</div>
             {/if}
           </div>

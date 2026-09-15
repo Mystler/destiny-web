@@ -48,9 +48,8 @@
 
   <p class="mt-8">
     Once your files are up on the server, you can put the data files for your age into your game folder and go there.
-    The recommended way to do so is using the Plasma Console command <i>Net.LinkWithOriginalBook</i> (for a persistent
-    instance) or <i>Net.LinkToAge</i> (for a temporary instance). See more about the console in the tips and tricks
-    section
+    The recommended way to do so is using the Plasma Console command <i>Net.LinkWithOriginalBook</i>. See more about the
+    console in the tips and tricks section
     <a href={resolve("/howto#tips")}>here</a>.
   </p>
   <p>

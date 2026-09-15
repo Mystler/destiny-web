@@ -101,7 +101,7 @@
         documentation for available commands. Use them carefully and at your own risk if you do not understand them.
       </li>
       <li>
-        For age testers, the most useful console commands will be <code>Net.LinkWithOriginalBook</code> to go to a persistent
+        For age testers, the most useful console command will be <code>Net.LinkWithOriginalBook</code> to go to a persistent
         personal instance of your age. Net.LinkToAge will create a temporary instance. It is not recommended to use Net.LinkToAge,
         especially not with original Cyan ages, but note that linking to original ages with console commands is generally
         subject to quirks because of how the game's scripts customize linking rules for various circumstances. If you want

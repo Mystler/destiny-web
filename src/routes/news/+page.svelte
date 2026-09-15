@@ -26,6 +26,10 @@
       <code>Python.Cheat GetAllBahroWedges 1</code>
       and <code>Python.Cheat GetAllCalendarStones 1</code> as well in a future client version.
     </p>
+    <p>
+      <b>UPDATE (2026-09-15):</b> I have fixed the underlying bug in dirtsand. If you haven't logged in during the time period
+      between the updated SDL file and the fix, then your Relto should migrate without losing data now.
+    </p>
   </Card>
   <Card date="2026-08-21 | Mystler">
     <p>Hi! Welcome to the new website for Destiny!</p>

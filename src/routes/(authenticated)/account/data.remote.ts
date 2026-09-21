@@ -14,7 +14,7 @@ export const getAvatars = query.live(async function* () {
 
 export const updateEmail = form(
   v.object({
-    email: v.pipe(v.string(), v.email("Invalid e-mail address!"), v.nonEmpty("Missing e-mail!")),
+    email: v.pipe(v.string(), v.trim(), v.email("Invalid e-mail address!"), v.nonEmpty("Missing e-mail!")),
     password: v.pipe(v.string(), v.nonEmpty("Missing password!")),
   }),
   async ({ email, password }) => {
@@ -27,21 +27,29 @@ export const updateEmail = form(
 );
 
 export const updatePassword = form(
-  v.object({
-    _old_password: v.pipe(v.string(), v.nonEmpty("Missing current password!")),
-    _new_password: v.pipe(
-      v.string(),
-      v.nonEmpty("Missing new password!"),
-      v.minLength(4, "Please use a longer password."),
-      v.maxLength(15, "Sorry, URU only supports password up to 15 characters in length!"),
+  v.pipe(
+    v.object({
+      _old_password: v.pipe(v.string(), v.nonEmpty("Missing current password!")),
+      _new_password: v.pipe(
+        v.string(),
+        v.nonEmpty("Missing new password!"),
+        v.minLength(4, "Please use a longer password."),
+        v.maxLength(15, "Sorry, URU only supports password up to 15 characters in length!"),
+      ),
+      _password_confirm: v.pipe(v.string(), v.nonEmpty("Missing password confirmation!")),
+    }),
+    v.forward(
+      v.partialCheck(
+        [["_new_password"], ["_password_confirm"]],
+        (x) => x._new_password === x._password_confirm,
+        "Password mismatch!",
+      ),
+      ["_password_confirm"],
     ),
-    _password_confirm: v.pipe(v.string(), v.nonEmpty("Missing password confirmation!")),
-  }),
-  async ({ _old_password, _new_password, _password_confirm }) => {
+  ),
+  async ({ _old_password, _new_password }) => {
     const event = getRequestEvent();
     if (!event.locals.user) return error(401, "Unauthorized");
-
-    if (_new_password !== _password_confirm) return { error: "Password mismatch!" };
 
     const token = await changePassword(event.locals.user.webId, _old_password, _new_password);
     if (!token) {

@@ -19,17 +19,11 @@
       <input type="email" name="email" required />
     </label>
     <div class="g-recaptcha" data-sitekey={PUBLIC_RECAPTCHA_SITE_KEY} data-action="RESET"></div>
-    {#if form?.missing}
-      <p class="error">All fields need to be filled out!</p>
-    {/if}
-    {#if form?.invalidEmail}
-      <p class="error">Invalid e-mail format!</p>
-    {/if}
-    {#if form?.fail}
-      <p class="error">Could not begin reset procedures. The specified e-mail address may not exist.</p>
-    {/if}
-    {#if form?.captchaFailed}
-      <p class="error">You could not be verified by against bot protections... Shame...</p>
+    {#each form?.issues as issue (issue.path)}
+      <p class="error">{issue.message}</p>
+    {/each}
+    {#if form?.error}
+      <p class="error">{form.error}</p>
     {/if}
     <input type="submit" />
   {:else}

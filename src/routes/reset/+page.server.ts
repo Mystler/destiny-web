@@ -4,21 +4,26 @@ import { MAIL_TEST_MODE, RECAPTCHA_VERIFICATION_URL } from "$env/static/private"
 import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
 import { forgotPasswordToken } from "$lib/server/db";
 import { sendMail } from "$lib/server/mailer";
+import * as v from "valibot";
+
+const ResetSchema = v.object({
+  email: v.pipe(v.string(), v.trim(), v.email("Invalid e-mail address!"), v.nonEmpty("Missing e-mail!")),
+  recaptchaToken: v.pipe(v.string(), v.nonEmpty("Missing captcha token! Please verify you're human!")),
+});
 
 export const actions = {
   default: async ({ request, url }) => {
     const data = await request.formData();
-    const email = data.get("email") as string;
-    const recaptchaToken = data.get("g-recaptcha-response") as string;
-
-    if (!email || !recaptchaToken) {
+    const dataObj = {
+      email: data.get("email"),
+      recaptchaToken: data.get("g-recaptcha-response"),
+    };
+    const params = v.safeParse(ResetSchema, dataObj);
+    if (!params.success) {
       return fail(400, {
-        missing: true,
-      });
-    }
-    if (!email.match(/.+@.+\..+/)) {
-      return fail(400, {
-        invalidEmail: true,
+        issues: params.issues.map((x) => {
+          return { path: x.path, message: x.message };
+        }),
       });
     }
 
@@ -30,7 +35,7 @@ export const actions = {
       },
       body: JSON.stringify({
         event: {
-          token: recaptchaToken,
+          token: params.output.recaptchaToken,
           expectedAction: "RESET",
           siteKey: PUBLIC_RECAPTCHA_SITE_KEY,
         },
@@ -44,11 +49,11 @@ export const actions = {
     } = await gcreq.json();
     if (!gcreq.ok || !gcresp || !gcresp.tokenProperties.valid || gcresp.tokenProperties.action !== "RESET") {
       return fail(400, {
-        captchaFailed: true,
+        error: "You could not be verified by against bot protections... Shame...",
       });
     }
 
-    const token = await forgotPasswordToken(email);
+    const token = await forgotPasswordToken(params.output.email);
     let mailSent = false;
 
     if (token) {
@@ -58,14 +63,14 @@ export const actions = {
         console.log(subject);
         console.log(message);
       } else {
-        sendMail(email, subject, message);
+        sendMail(params.output.email, subject, message);
       }
       mailSent = true;
     }
 
     if (!token || !mailSent) {
       return fail(400, {
-        fail: true,
+        error: "Could not begin reset procedures. The specified e-mail address may not exist.",
       });
     }
 

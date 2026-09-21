@@ -10,6 +10,7 @@ export const login = form(
   v.object({
     username: v.pipe(
       v.string(),
+      v.trim(),
       v.nonEmpty("Missing username!"),
       v.check((x) => !v.is(EmailSchema, x), "You used an e-mail instead of a username."),
     ),

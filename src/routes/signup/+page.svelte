@@ -33,23 +33,11 @@
       <input type="password" name="password_confirm" required />
     </label>
     <div class="g-recaptcha" data-sitekey={PUBLIC_RECAPTCHA_SITE_KEY} data-action="SIGNUP"></div>
-    {#if form?.missing}
-      <p class="error">All fields need to be filled out!</p>
-    {/if}
-    {#if form?.emailUser}
-      <p class="error">Please do not use an e-mail address as your username.</p>
-    {/if}
-    {#if form?.passwordMismatch}
-      <p class="error">Your password confirmation did not match!</p>
-    {/if}
-    {#if form?.passwordTooLong}
-      <p class="error">Sorry, URU only supports password up to 15 characters in length!</p>
-    {/if}
-    {#if form?.fail}
-      <p class="error">Your account could not be created, the Username or E-Mail might already exist!</p>
-    {/if}
-    {#if form?.captchaFailed}
-      <p class="error">You could not be verified by against bot protections... Shame...</p>
+    {#each form?.issues as issue (issue.path)}
+      <p class="error">{issue.message}</p>
+    {/each}
+    {#if form?.error}
+      <p class="error">{form.error}</p>
     {/if}
     <input type="submit" />
   {:else}

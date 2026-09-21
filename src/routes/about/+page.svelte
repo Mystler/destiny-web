@@ -26,6 +26,8 @@
       rel="noopener">TypeScript</a
     >,
     <a href="https://svelte.dev/" target="_blank" rel="noopener">Svelte</a>, and
-    <a href="https://tailwindcss.com/" target="_blank" rel="noopener">Tailwind CSS</a>.
+    <a href="https://tailwindcss.com/" target="_blank" rel="noopener">Tailwind CSS</a>.<br />
+    The source code is available on
+    <a href="https://github.com/Mystler/destiny-web" target="_blank" rel="noopener">GitHub</a>.
   </p>
 </div>

@@ -10,6 +10,7 @@
     copySdlFile,
     getOnlineList,
     getPlayerList,
+    getServerStatus,
     removeSequencePrefix,
     restartDirtsand,
     viewAgeUpload,
@@ -23,6 +24,7 @@
   let { data } = $props();
   let showPlayerBrowser = $state(false);
   let playerSearch = $state("");
+  const status = $derived(await getServerStatus());
 </script>
 
 <svelte:head>
@@ -33,6 +35,11 @@
 <h1>Admin Panel</h1>
 
 <div class="p-1">
+  {#if status.online}
+    <p>🟢 Destiny is online<br /><span class="text-xs text-slate-500">Uptime {status.uptime}</span></p>
+  {:else}
+    <p>🔴 Destny is offline</p>
+  {/if}
   <p>{data.stats?.players} avatars on {data.stats?.accounts} accounts.</p>
   <div class="mx-auto max-w-xl p-1">
     <Card>

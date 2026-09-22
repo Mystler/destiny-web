@@ -15,6 +15,22 @@ export const getOnlineList = query.live(async function* () {
   }
 });
 
+export const getServerStatus = query.live(async function* () {
+  const event = getRequestEvent();
+  if (!event.locals.user?.admin) return error(401, "Unauthorized");
+  while (true) {
+    const cmdOut = execSync("ps -C dirtsand -o comm,etime").toString();
+    const match = cmdOut.match(/dirtsand\W+([\d:\-+]+)/);
+    const online = match ? true : false;
+    const uptime = match?.at(1);
+    yield {
+      online,
+      uptime,
+    };
+    await new Promise((f) => setTimeout(f, 5000));
+  }
+});
+
 export const getPlayerList = query(async () => {
   const event = getRequestEvent();
   if (!event.locals.user?.admin) return error(401, "Unauthorized");

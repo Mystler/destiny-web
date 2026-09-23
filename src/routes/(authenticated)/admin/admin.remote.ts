@@ -3,7 +3,7 @@ import { command, form, getRequestEvent, query } from "$app/server";
 import { createSequencePrefix, deleteSequencePrefix, getAllPlayers, getOnlineAvatars } from "$lib/server/db";
 import { error } from "@sveltejs/kit";
 import { execSync } from "node:child_process";
-import { AGES_DIR, AGEUPLOAD_DIR, DIRTSAND_RESTART_COMMAND, SDL_DIR } from "$env/static/private";
+import { AGES_DIR, AGEUPLOAD_DIR, DIRTSAND_LOG_FILE, DIRTSAND_RESTART_COMMAND, SDL_DIR } from "$env/static/private";
 import { copyFileSync, readFileSync } from "node:fs";
 
 export const getOnlineList = query.live(async function* () {
@@ -19,15 +19,34 @@ export const getServerStatus = query.live(async function* () {
   const event = getRequestEvent();
   if (!event.locals.user?.admin) return error(401, "Unauthorized");
   while (true) {
-    const cmdOut = execSync("ps -C dirtsand -o comm,etime").toString();
-    const match = cmdOut.match(/dirtsand\W+([\d:\-+]+)/);
-    const online = match ? true : false;
-    const uptime = match?.at(1);
-    yield {
-      online,
-      uptime,
-    };
+    try {
+      const cmdOut = execSync("ps -C dirtsand -o comm,etime").toString();
+      const match = cmdOut.match(/dirtsand\W+([\d:\-+]+)/);
+      const online = match ? true : false;
+      const uptime = match?.at(1);
+      yield {
+        online,
+        uptime,
+      };
+    } catch {
+      yield {
+        online: false,
+        uptime: undefined,
+      };
+    }
     await new Promise((f) => setTimeout(f, 5000));
+  }
+});
+
+export const getServerLog = query(async () => {
+  const event = getRequestEvent();
+  if (!event.locals.user?.admin) return error(401, "Unauthorized");
+
+  try {
+    const log = readFileSync(DIRTSAND_LOG_FILE).toString().trim();
+    return log;
+  } catch {
+    return null;
   }
 });
 

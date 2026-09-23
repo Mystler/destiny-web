@@ -10,6 +10,7 @@
     copySdlFile,
     getOnlineList,
     getPlayerList,
+    getServerLog,
     getServerStatus,
     removeSequencePrefix,
     restartDirtsand,
@@ -23,6 +24,7 @@
 
   let { data } = $props();
   let showPlayerBrowser = $state(false);
+  let showServerLog = $state(false);
   let playerSearch = $state("");
   const status = $derived(await getServerStatus());
 </script>
@@ -38,7 +40,18 @@
   {#if status.online}
     <p>🟢 Destiny is online<br /><span class="text-xs text-slate-500">Uptime {status.uptime}</span></p>
   {:else}
-    <p>🔴 Destny is offline</p>
+    <p>🔴 Destiny is offline</p>
+  {/if}
+  <p>
+    <button type="button" class="link-btn" onclick={() => (showServerLog = !showServerLog)}>Show Server Log</button>
+  </p>
+  {#if showServerLog}
+    {const log = $derived(await getServerLog())}
+    <div transition:slide class="mx-auto flex w-full max-w-(--breakpoint-xl) p-2 text-left">
+      <code class="max-h-128 w-full overflow-y-auto rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
+        {log ?? "No logfile found."}
+      </code>
+    </div>
   {/if}
   <p>{data.stats?.players} avatars on {data.stats?.accounts} accounts.</p>
   <div class="mx-auto max-w-xl p-1">

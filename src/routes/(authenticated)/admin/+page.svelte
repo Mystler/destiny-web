@@ -128,15 +128,15 @@
         {/each}
         {#if viewAgeUpload.result}
           <div>Age Diff</div>
-          <code class="rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
+          <code class="max-h-128 overflow-y-auto rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
             {@html hljs.highlight(viewAgeUpload.result.diffAge, { language: "diff" }).value}
           </code>
           <div>SDL Diff</div>
-          <code class="rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
+          <code class="max-h-128 overflow-y-auto rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
             {@html hljs.highlight(viewAgeUpload.result.diffSdl, { language: "diff" }).value}
           </code>
           <div>Uploaded Age</div>
-          <code class="rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
+          <code class="max-h-128 overflow-y-auto rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
             {viewAgeUpload.result.age}
           </code>
           {#if viewAgeUpload.result.age !== "---"}
@@ -156,7 +156,7 @@
             />
           {/if}
           <div>Uploaded SDL</div>
-          <code class="rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
+          <code class="max-h-128 overflow-y-auto rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
             {viewAgeUpload.result.sdl}
           </code>
           {#if viewAgeUpload.result.sdl !== "---"}

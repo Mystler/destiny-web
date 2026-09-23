@@ -43,7 +43,7 @@ export const getServerLog = query(async () => {
   if (!event.locals.user?.admin) return error(401, "Unauthorized");
 
   try {
-    const log = readFileSync(DIRTSAND_LOG_FILE).toString().trim();
+    const log = readFileSync(DIRTSAND_LOG_FILE).toString("utf-8").trim();
     return log;
   } catch {
     return null;
@@ -64,31 +64,8 @@ export const viewAgeUpload = form(
     const event = getRequestEvent();
     if (!event.locals.user?.admin) return error(401, "Unauthorized");
 
-    // Get diffs
-    let diffAge: string;
-    try {
-      // HAX time: Git diff returns a non-zero exit code on changes, so our actual diff output will be in the catch block
-      // Reroute error into stdout
-      diffAge =
-        execSync(`git diff --no-index "${AGES_DIR}/${ageName}.age" "${AGEUPLOAD_DIR}/${ageName}.age" 2>&1`)
-          .toString()
-          .trim() || "No changes in .age";
-    } catch (error) {
-      diffAge = (error as { stdout: Buffer | string }).stdout.toString();
-    }
-    let diffSdl: string;
-    try {
-      diffSdl =
-        execSync(`git diff --no-index "${SDL_DIR}/${ageName}.sdl" "${AGEUPLOAD_DIR}/${ageName}.sdl" 2>&1`)
-          .toString()
-          .trim() || "No changes in .sdl";
-    } catch (error) {
-      diffSdl = (error as { stdout: Buffer | string }).stdout.toString();
-    }
-
-    // Get file components
-    let age: string;
-    let sdl: string;
+    // Get files
+    let age, sdl, liveAge, liveSdl: string;
     try {
       age = readFileSync(`${AGEUPLOAD_DIR}/${ageName}.age`).toString("utf-8");
     } catch {
@@ -99,13 +76,23 @@ export const viewAgeUpload = form(
     } catch {
       sdl = "---";
     }
+    try {
+      liveAge = readFileSync(`${AGES_DIR}/${ageName}.age`).toString("utf-8");
+    } catch {
+      liveAge = "---";
+    }
+    try {
+      liveSdl = readFileSync(`${SDL_DIR}/${ageName}.sdl`).toString("utf-8");
+    } catch {
+      liveSdl = "---";
+    }
 
     return {
       ageName,
-      diffAge,
-      diffSdl,
       age,
       sdl,
+      liveAge,
+      liveSdl,
     };
   },
 );

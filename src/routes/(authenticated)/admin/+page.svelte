@@ -19,14 +19,31 @@
   import hljs from "highlight.js/lib/core";
   import diff from "highlight.js/lib/languages/diff";
   import "highlight.js/styles/github-dark-dimmed.css";
+  import { createPatch, OMIT_HEADERS } from "diff";
 
   hljs.registerLanguage("diff", diff);
+  const SDLVersionRegex = /({[^}]+})/gm;
 
   let { data } = $props();
   let showPlayerBrowser = $state(false);
   let showServerLog = $state(false);
   let playerSearch = $state("");
   const status = $derived(await getServerStatus());
+  let sdlVersionDiff = $state(false);
+
+  function makeDiff(oldStr: string, newStr: string) {
+    if (oldStr === "---" && newStr === "---") return "Nothing to diff.";
+    if (oldStr === "---") return "Not installed on server. The file is new.";
+    if (newStr === "---") return "No file uploaded.";
+    return hljs.highlight(
+      createPatch("", oldStr, newStr, undefined, undefined, {
+        headerOptions: OMIT_HEADERS,
+        stripTrailingCr: true,
+        ignoreWhitespace: true,
+      }),
+      { language: "diff" },
+    ).value;
+  }
 </script>
 
 <svelte:head>
@@ -129,11 +146,21 @@
         {#if viewAgeUpload.result}
           <div>Age Diff</div>
           <code class="max-h-128 overflow-y-auto rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
-            {@html hljs.highlight(viewAgeUpload.result.diffAge, { language: "diff" }).value}
+            {@html makeDiff(viewAgeUpload.result.liveAge, viewAgeUpload.result.age)}
           </code>
-          <div>SDL Diff</div>
+          <div>
+            SDL Diff <button class="link-btn text-xs" onclick={() => (sdlVersionDiff = false)}>File</button>
+            <button class="link-btn text-xs" onclick={() => (sdlVersionDiff = true)}>Version</button>
+          </div>
           <code class="max-h-128 overflow-y-auto rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
-            {@html hljs.highlight(viewAgeUpload.result.diffSdl, { language: "diff" }).value}
+            {@html makeDiff(
+              sdlVersionDiff
+                ? (viewAgeUpload.result.liveSdl.match(SDLVersionRegex)?.pop() ?? "---")
+                : viewAgeUpload.result.liveSdl,
+              sdlVersionDiff
+                ? (viewAgeUpload.result.sdl.match(SDLVersionRegex)?.pop() ?? "---")
+                : viewAgeUpload.result.sdl,
+            )}
           </code>
           <div>Uploaded Age</div>
           <code class="max-h-128 overflow-y-auto rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">

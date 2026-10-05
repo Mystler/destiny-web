@@ -1,6 +1,6 @@
 import { form, getRequestEvent } from "$app/server";
-import { AGES_DIR, AGEUPLOAD_DIR, MAIL_ADMIN, MAIL_TEST_MODE, SDL_DIR } from "$env/static/private";
-import { sendMail } from "$lib/server/mailer";
+import { AGES_DIR, AGEUPLOAD_DIR, MAIL_ADMIN, MAIL_TEST_MODE, SDL_DIR } from "$app/env/private";
+import { sendMail } from "#lib/server/mailer.js";
 import { error } from "@sveltejs/kit";
 import { execSync } from "node:child_process";
 import { writeFileSync } from "node:fs";

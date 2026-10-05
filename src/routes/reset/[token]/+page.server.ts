@@ -1,9 +1,9 @@
-import { forgotPasswordTokenCheck } from "$lib/server/db";
+import { forgotPasswordTokenCheck } from "#lib/server/db.js";
 import { error, type ServerLoad } from "@sveltejs/kit";
 
 export const load: ServerLoad = async ({ params }) => {
   if (params.token && (await forgotPasswordTokenCheck(params.token))) {
     return;
   }
-  error(404, { message: "Invalid token!" });
+  error(404, "Invalid token!");
 };

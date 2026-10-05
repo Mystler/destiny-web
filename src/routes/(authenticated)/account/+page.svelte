@@ -1,8 +1,8 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
-  import { slide } from "$lib/assets/Animatons";
-  import ButtonLink from "$lib/components/ButtonLink.svelte";
-  import Card from "$lib/components/Card.svelte";
+  import { slide } from "#lib/assets/Animatons.js";
+  import ButtonLink from "#lib/components/ButtonLink.svelte";
+  import Card from "#lib/components/Card.svelte";
   import { onMount } from "svelte";
   import { getAvatars, updateEmail, updatePassword } from "./data.remote.js";
 
@@ -48,11 +48,16 @@
 
 <p>
   <button class="link-btn" onclick={() => (showForm = showForm !== "email" ? "email" : undefined)}>Change E-Mail</button
-  ><br />
+  >
+
+  <br />
+
   <button class="link-btn" onclick={() => (showForm = showForm !== "password" ? "password" : undefined)}
     >Change Password</button
-  ><br />
-  <a class="link-btn" href={resolve("/logout")}>Logout</a>
+  >
+
+  <br />
+  <a class="link-btn" href={resolve("logout")}>Logout</a>
 </p>
 
 {#if showForm === "email"}

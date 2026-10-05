@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
+  import { PUBLIC_RECAPTCHA_SITE_KEY } from "$app/env/public";
 
   let { form } = $props();
 </script>

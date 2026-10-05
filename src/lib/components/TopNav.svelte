@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
   import { slide } from "svelte/transition";
-  import logo from "$lib/assets/logo.svg";
+  import logo from "#lib/assets/logo.svg";
   import { page } from "$app/state";
 </script>
 
@@ -15,20 +15,22 @@
       <div class="font-semibold">DestinyURU</div>
     </a>
     <div class="hidden items-center gap-8 md:flex">
-      <a href={resolve("/howto")}>How-To</a>
-      <a href={resolve("/fan-ages")}>Fan Ages</a>
-      <a href={resolve("/news")}>News</a>
-      <a href={resolve("/about")}>About</a>
+      <a href={resolve("howto")}>How-To</a>
+      <a href={resolve("fan-ages")}>Fan Ages</a>
+      <a href={resolve("news")}>News</a>
+      <a href={resolve("about")}>About</a>
     </div>
   </div>
   <div class="menu hidden items-center gap-8 text-right md:flex">
     {#if page.data.loggedIn}
       <div>
-        Logged in as <a href={resolve("/(authenticated)/account")}>{page.data.loggedIn}</a><br />
-        <a href={resolve("/logout")}>Logout</a>
+        Logged in as
+        <a href={resolve("/(authenticated)/account")}>{page.data.loggedIn}</a>
+        <br />
+        <a href={resolve("logout")}>Logout</a>
       </div>
     {:else}
-      <a href={resolve("/login")}>Login</a>
+      <a href={resolve("login")}>Login</a>
     {/if}
   </div>
 </div>

@@ -27,8 +27,9 @@
     <p class="error">Login failed!</p>
   {/if}
   <p class="text-center">
-    <a href={resolve("/signup")} class="link-btn">I need an account</a><br />
-    <a href={resolve("/reset")} class="link-btn">I forgot my password</a>
+    <a href={resolve("signup")} class="link-btn">I need an account</a>
+    <br />
+    <a href={resolve("reset")} class="link-btn">I forgot my password</a>
   </p>
   <input type="submit" />
 </form>

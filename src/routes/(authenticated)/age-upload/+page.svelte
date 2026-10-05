@@ -21,11 +21,15 @@
   {#if !uploadAgeResult?.success}
     <p>Here you can submit your own age if you want to test it on Destiny!</p>
     <p>
-      In order to provide the age for play, the server needs your <i>.age</i> and, if you have one, your <i>.sdl</i>
+      In order to provide the age for play, the server needs your
+      <i>.age</i>
+      and, if you have one, your
+      <i>.sdl</i>
       file. You can use this form to send them in. I will get a notification and manually review your files to ensure they
       are in the proper format, then put them up on the server. I may send you an e-mail, or contact you on Discord if I know
       you there, once the server is ready. For any questions, feel free to
-      <a href={resolve("/about")}>reach out to me</a>!
+      <a href={resolve("about")}>reach out to me</a>
+      !
     </p>
 
     <form class="mt-8 flex flex-col items-center gap-2 text-left" enctype="multipart/form-data" {...uploadAge}>
@@ -48,9 +52,11 @@
 
   <p class="mt-8">
     Once your files are up on the server, you can put the data files for your age into your game folder and go there.
-    The recommended way to do so is using the Plasma Console command <i>Net.LinkWithOriginalBook</i>. See more about the
-    console in the tips and tricks section
-    <a href={resolve("/howto#tips")}>here</a>.
+    The recommended way to do so is using the Plasma Console command
+    <i>Net.LinkWithOriginalBook</i>
+    . See more about the console in the tips and tricks section
+    <a href={resolve("howto#tips")}>here</a>
+    .
   </p>
   <p>
     Please note that you will only need to upload these files again if any of these specific two files change.<br />

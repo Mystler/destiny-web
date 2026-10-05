@@ -1,7 +1,7 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
-  import ButtonLink from "$lib/components/ButtonLink.svelte";
-  import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
+  import ButtonLink from "#lib/components/ButtonLink.svelte";
+  import { PUBLIC_RECAPTCHA_SITE_KEY } from "$app/env/public";
 
   let { form } = $props();
 </script>
@@ -42,6 +42,6 @@
     <input type="submit" />
   {:else}
     <p>Your account has been created! You can now go and log in!</p>
-    <ButtonLink href={resolve("/login")}>Login</ButtonLink>
+    <ButtonLink href={resolve("login")}>Login</ButtonLink>
   {/if}
 </form>

@@ -1,5 +1,5 @@
 import { form, getRequestEvent, query } from "$app/server";
-import { getUserAvatars, changeEmail, changePassword } from "$lib/server/db";
+import { getUserAvatars, changeEmail, changePassword } from "#lib/server/db.js";
 import { error } from "@sveltejs/kit";
 import * as v from "valibot";
 

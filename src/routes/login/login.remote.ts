@@ -1,6 +1,6 @@
 import { resolve } from "$app/paths";
 import { form, getRequestEvent } from "$app/server";
-import { loginUser } from "$lib/server/db";
+import { loginUser } from "#lib/server/db.js";
 import { redirect } from "@sveltejs/kit";
 import * as v from "valibot";
 

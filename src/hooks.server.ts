@@ -1,5 +1,5 @@
-import { getUserData } from "$lib/server/db";
-import { type Handle } from "@sveltejs/kit";
+import type { Handle } from "@sveltejs/kit/hooks";
+import { getUserData } from "#lib/server/db.js";
 
 export const handle: Handle = async ({ event, resolve }) => {
   const session = event.cookies.get("session");

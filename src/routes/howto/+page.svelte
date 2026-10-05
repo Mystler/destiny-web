@@ -1,7 +1,7 @@
 <script lang="ts">
   import { asset } from "$app/paths";
-  import ButtonLink from "$lib/components/ButtonLink.svelte";
-  import Card from "$lib/components/Card.svelte";
+  import ButtonLink from "#lib/components/ButtonLink.svelte";
+  import Card from "#lib/components/Card.svelte";
 </script>
 
 <svelte:head>
@@ -39,10 +39,17 @@
           href="https://github.com/H-uru/Plasma/releases/tag/last-successful"
           target="_blank"
           rel="noopener">precompiled H-uru/Plasma client</a
-        >, the game assets from
-        <a href="https://github.com/H-uru/moul-assets" target="_blank" rel="noopener">H-uru/moul-assets</a>, and
-        Destiny's <a href={asset("/server.ini")} download>server.ini</a>. Then, it creates a shortcut with the
-        <code>/LocalData</code> option.
+        >
+
+        , the game assets from
+
+        <a href="https://github.com/H-uru/moul-assets" target="_blank" rel="noopener">H-uru/moul-assets</a>
+
+        , and Destiny's
+        <a href={asset("server.ini")} download>server.ini</a>
+        . Then, it creates a shortcut with the
+        <code>/LocalData</code>
+        option.
       </p>
       <p class="my-4 text-center">
         <ButtonLink href="https://github.com/Hoikas/GetUru" target="_blank" rel="noopener">GetUru</ButtonLink>
@@ -73,7 +80,9 @@
           argument. This will require you to build the client as an internal client (the default when building H-uru/Plasma).
         </li>
         <li>
-          Lastly, you will need the correct <a href={asset("/server.ini")} download>server.ini</a> file for the Destiny shard.
+          Lastly, you will need the correct
+          <a href={asset("server.ini")} download>server.ini</a>
+          file for the Destiny shard.
         </li>
       </ul>
       <p>

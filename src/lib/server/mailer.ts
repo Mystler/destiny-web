@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { MAIL_SENDER } from "$env/static/private";
+import { MAIL_SENDER } from "$app/env/private";
 
 const mailer = nodemailer.createTransport({
   sendmail: true,

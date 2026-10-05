@@ -1,7 +1,7 @@
 import postgres from "postgres";
 import { building } from "$app/env";
 import { hash, randomBytes } from "node:crypto";
-import { DATABASE_DB, DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USER } from "$env/static/private";
+import { DATABASE_DB, DATABASE_HOST, DATABASE_PASSWORD, DATABASE_USER } from "$app/env/private";
 
 let sql: postgres.Sql | undefined;
 

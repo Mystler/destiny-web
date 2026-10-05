@@ -1,6 +1,6 @@
 import { resolve } from "$app/paths";
 import { form, getRequestEvent } from "$app/server";
-import { forgotPasswordTokenCheck, resetPassword } from "$lib/server/db";
+import { forgotPasswordTokenCheck, resetPassword } from "#lib/server/db.js";
 import { error, redirect } from "@sveltejs/kit";
 import * as v from "valibot";
 
@@ -16,7 +16,7 @@ export const setNewPassword = form(
   async ({ _new_password, _password_confirm }) => {
     const { params } = getRequestEvent();
     if (!params.token || !(await forgotPasswordTokenCheck(params.token))) {
-      return error(404, { message: "Invalid token!" });
+      return error(404, "Invalid token!");
     }
 
     if (_new_password !== _password_confirm)
@@ -31,6 +31,6 @@ export const setNewPassword = form(
       };
     }
 
-    return redirect(303, resolve("/reset/success"));
+    return redirect(303, resolve("reset/success"));
   },
 );

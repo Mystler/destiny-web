@@ -1,9 +1,11 @@
 import * as v from "valibot";
 import { command, form, getRequestEvent, query } from "$app/server";
-import { createSequencePrefix, deleteSequencePrefix, getAllPlayers, getOnlineAvatars } from "$lib/server/db";
+import { createSequencePrefix, deleteSequencePrefix, getAllPlayers, getOnlineAvatars } from "#lib/server/db.js";
 import { error } from "@sveltejs/kit";
 import { execSync } from "node:child_process";
-import { AGES_DIR, AGEUPLOAD_DIR, DIRTSAND_LOG_FILE, DIRTSAND_RESTART_COMMAND, SDL_DIR } from "$env/static/private";
+
+import { AGES_DIR, AGEUPLOAD_DIR, DIRTSAND_LOG_FILE, DIRTSAND_RESTART_COMMAND, SDL_DIR } from "$app/env/private";
+
 import { copyFileSync, readFileSync } from "node:fs";
 
 export const getOnlineList = query.live(async function* () {

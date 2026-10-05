@@ -1,8 +1,8 @@
 import { fail } from "@sveltejs/kit";
 import type { Actions } from "./$types";
-import { createUser } from "$lib/server/db";
-import { RECAPTCHA_VERIFICATION_URL } from "$env/static/private";
-import { PUBLIC_RECAPTCHA_SITE_KEY } from "$env/static/public";
+import { createUser } from "#lib/server/db.js";
+import { RECAPTCHA_VERIFICATION_URL } from "$app/env/private";
+import { PUBLIC_RECAPTCHA_SITE_KEY } from "$app/env/public";
 import * as v from "valibot";
 
 const EmailSchema = v.pipe(v.string(), v.email());

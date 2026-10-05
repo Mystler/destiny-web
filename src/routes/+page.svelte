@@ -1,9 +1,9 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
   import { page } from "$app/state";
-  import banner from "$lib/assets/DestinyBanner.webp";
-  import logo from "$lib/assets/logo.svg";
-  import ButtonLink from "$lib/components/ButtonLink.svelte";
+  import banner from "#lib/assets/DestinyBanner.webp";
+  import logo from "#lib/assets/logo.svg";
+  import ButtonLink from "#lib/components/ButtonLink.svelte";
 </script>
 
 <svelte:head>
@@ -33,13 +33,13 @@
         <ButtonLink href={resolve("/(authenticated)/account")}>My Account</ButtonLink>
         <ButtonLink href={resolve("/(authenticated)/age-upload")}>Age Uploader</ButtonLink>
       {:else}
-        <ButtonLink href={resolve("/signup")}>Sign Up</ButtonLink>
-        <ButtonLink href={resolve("/login")}>Login</ButtonLink>
+        <ButtonLink href={resolve("signup")}>Sign Up</ButtonLink>
+        <ButtonLink href={resolve("login")}>Login</ButtonLink>
       {/if}
-      <ButtonLink href={resolve("/howto")}>How-To</ButtonLink>
-      <ButtonLink href={resolve("/fan-ages")}>Fan Ages</ButtonLink>
-      <ButtonLink href={resolve("/news")}>News</ButtonLink>
-      <ButtonLink href={resolve("/about")}>About</ButtonLink>
+      <ButtonLink href={resolve("howto")}>How-To</ButtonLink>
+      <ButtonLink href={resolve("fan-ages")}>Fan Ages</ButtonLink>
+      <ButtonLink href={resolve("news")}>News</ButtonLink>
+      <ButtonLink href={resolve("about")}>About</ButtonLink>
     </div>
   </div>
 </div>
@@ -60,8 +60,16 @@
     submit the fan age files that the server needs to allow you to test them.
   </p>
   <p>
-    Interested? Then check out <a href={resolve("/howto")}>how to play</a> on Destiny or
-    {#if !page.data.loggedIn}<a href={resolve("/signup")}>sign up</a>{:else}sign up{/if}
+    Interested? Then check out
+    <a href={resolve("howto")}>how to play</a>
+    on Destiny or
+
+    {#if !page.data.loggedIn}
+      <a href={resolve("signup")}>sign up</a>
+    {:else}
+      sign up
+    {/if}
+
     for an account now!
   </p>
 </div>

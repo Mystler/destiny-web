@@ -16,7 +16,7 @@ export default defineConfig({
       },
       adapter: adapter(),
       paths: {
-        origin: process.env.ORIGIN,
+        origin: "https://destiny.mystler.eu",
       },
       experimental: {
         remoteFunctions: true,

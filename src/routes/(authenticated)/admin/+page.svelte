@@ -10,7 +10,7 @@
     copySdlFile,
     getOnlineList,
     getPlayerList,
-    getServerLog,
+    getServerLogs,
     getServerStatus,
     removeSequencePrefix,
     restartDirtsand,
@@ -27,6 +27,7 @@
   let { data } = $props();
   let showPlayerBrowser = $state(false);
   let showServerLog = $state(false);
+  let selectedLog = $state(0);
   let playerSearch = $state("");
   const status = $derived(await getServerStatus());
   let sdlVersionDiff = $state(false);
@@ -63,10 +64,17 @@
     <button type="button" class="link-btn" onclick={() => (showServerLog = !showServerLog)}>Show Server Log</button>
   </p>
   {#if showServerLog}
-    {const log = $derived(await getServerLog())}
-    <div transition:slide class="mx-auto flex w-full max-w-(--breakpoint-xl) p-2 text-left">
-      <code class="max-h-128 w-full overflow-y-auto rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
-        {log ?? "No logfile found."}
+    {const logs = $derived(await getServerLogs())}
+    <div transition:slide class="mx-auto w-full max-w-(--breakpoint-xl) p-2 text-left">
+      {#if logs && logs.length > 1}
+        <div class="mb-1 flex flex-wrap justify-end gap-2">
+          {#each logs as log, idx (log[0])}
+            <button class="link-btn" onclick={() => (selectedLog = idx)}>{log[0]}</button>
+          {/each}
+        </div>
+      {/if}
+      <code class="block max-h-128 w-full overflow-y-auto rounded-xl bg-slate-700 p-2 whitespace-pre-wrap">
+        {logs?.[selectedLog][1] ?? "No logfile found."}
       </code>
     </div>
   {/if}

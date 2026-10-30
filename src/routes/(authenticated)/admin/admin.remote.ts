@@ -6,7 +6,8 @@ import { execSync } from "node:child_process";
 
 import { AGES_DIR, AGEUPLOAD_DIR, DIRTSAND_LOG_FILE, DIRTSAND_RESTART_COMMAND, SDL_DIR } from "$app/env/private";
 
-import { copyFileSync, readFileSync } from "node:fs";
+import { copyFileSync, readdirSync, readFileSync } from "node:fs";
+import { basename, dirname, extname } from "node:path";
 
 export const getOnlineList = query.live(async function* () {
   const event = getRequestEvent();
@@ -40,13 +41,23 @@ export const getServerStatus = query.live(async function* () {
   }
 });
 
-export const getServerLog = query(async () => {
+export const getServerLogs = query(async () => {
   const event = getRequestEvent();
   if (!event.locals.user?.admin) return error(401, "Unauthorized");
 
   try {
-    const log = readFileSync(DIRTSAND_LOG_FILE).toString("utf-8").trim();
-    return log;
+    // Log file via .env
+    const logs = [["Latest", readFileSync(DIRTSAND_LOG_FILE).toString("utf-8").trim()]];
+    // Special hackery for pm2-logrotate variants here. Look away.
+    const dir = dirname(DIRTSAND_LOG_FILE);
+    const ext = extname(DIRTSAND_LOG_FILE);
+    const base = basename(DIRTSAND_LOG_FILE, ext);
+    for (const file of readdirSync(dir).reverse()) {
+      if (file.startsWith(`${base}__`) && file.endsWith(ext)) {
+        logs.push([file, readFileSync(`${dir}/${file}`).toString("utf-8").trim()]);
+      }
+    }
+    return logs;
   } catch {
     return null;
   }

@@ -40,11 +40,8 @@
           target="_blank"
           rel="noopener">precompiled H-uru/Plasma client</a
         >
-
         , the game assets from
-
         <a href="https://github.com/H-uru/moul-assets" target="_blank" rel="noopener">H-uru/moul-assets</a>
-
         , and Destiny's
         <a href={asset("server.ini")} download>server.ini</a>
         . Then, it creates a shortcut with the
@@ -59,15 +56,17 @@
       <h3 id="compile-client">Compile your own Client</h3>
       <p>
         If you don't use GetUru, then you will have to source and build the client yourself. This is the original "bring
-        your own client" approach, intended for developers. Thus, if this is your intended option, I would assume you
-        have basic familiarity with building Myst Online clients already.
+        your own client" approach, intended for developers.
       </p>
       <p>
         The recommended client for Destiny is any client that is based on the <a
           href="https://github.com/H-uru/Plasma"
           target="_blank"
           rel="noopener">H-uru/Plasma</a
-        > fork. See that GitHub page for more information.
+        >
+        fork. See that GitHub page and the
+        <a href="https://h-uru.github.io/Plasma/building.html" target="_blank" rel="noopener">Building instructions</a> for
+        more information.
       </p>
       <p>The following additional points are required to play with a custom client:</p>
       <ul class="mb-2 list-inside list-disc">

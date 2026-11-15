@@ -1,6 +1,12 @@
 import * as v from "valibot";
 import { command, form, getRequestEvent, query } from "$app/server";
-import { createSequencePrefix, deleteSequencePrefix, getAllPlayers, getOnlineAvatars } from "#lib/server/db.js";
+import {
+  createSequencePrefix,
+  deleteSequencePrefix,
+  getAllPlayers,
+  getOnlineAvatars,
+  setFanAgeLink,
+} from "#lib/server/db.js";
 import { error } from "@sveltejs/kit";
 import { execSync } from "node:child_process";
 
@@ -157,5 +163,19 @@ export const removeSequencePrefix = form(
 
     if (!deleteSequencePrefix(seqPrefix)) return { error: "Failed to remove sequence prefix." };
     return { success: "Age removed." };
+  },
+);
+
+export const updateFanAgeLink = form(
+  v.object({
+    seqPrefix: v.pipe(v.number(), v.integer("Sequence Prefix must be an integer!")),
+    link: v.string(),
+  }),
+  async ({ seqPrefix, link }) => {
+    const event = getRequestEvent();
+    if (!event.locals.user?.admin) return error(401, "Unauthorized");
+
+    if (!setFanAgeLink(seqPrefix, link)) return { error: "Failed to change URL." };
+    return { success: "URL set." };
   },
 );

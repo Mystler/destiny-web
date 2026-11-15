@@ -38,7 +38,16 @@
       <tbody>
         <tr><td><b>Prefix</b></td><td><b>Age</b></td></tr>
         {#each filtered as entry (entry.seqPrefix)}
-          <tr><td>{entry.seqPrefix}</td><td>{entry.age}</td></tr>
+          <tr>
+            <td>{entry.seqPrefix}</td>
+            <td>
+              {#if entry.link}
+                <a href={entry.link} target="_blank" rel="noopener">{entry.age}</a>
+              {:else}
+                {entry.age}
+              {/if}
+            </td>
+          </tr>
         {/each}
       </tbody>
     </table>

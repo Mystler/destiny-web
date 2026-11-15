@@ -14,6 +14,7 @@
     getServerStatus,
     removeSequencePrefix,
     restartDirtsand,
+    updateFanAgeLink,
     viewAgeUpload,
   } from "./admin.remote";
   import hljs from "highlight.js/lib/core";
@@ -218,7 +219,7 @@
     <Card>
       <h3>Sequence Prefixes</h3>
       <div class="flex flex-col text-left">
-        {#each addSequencePrefix.fields.issues() as issue (issue.path)}
+        {#each addSequencePrefix.fields.allIssues() as issue (issue.path)}
           <p class="error">{issue.message}</p>
         {/each}
         {#if addSequencePrefix.result?.error}
@@ -238,7 +239,23 @@
           <label class="text-nowrap">Age: <input required {...addSequencePrefix.fields.ageName.as("text")} /></label>
           <input type="submit" value="Add" />
         </form>
-        {#each removeSequencePrefix.fields.issues() as issue (issue.path)}
+        {#each updateFanAgeLink.fields.allIssues() as issue (issue.path)}
+          <p class="error">{issue.message}</p>
+        {/each}
+        {#if updateFanAgeLink.result?.error}
+          <p class="error">{updateFanAgeLink.result.error}</p>
+        {/if}
+        {#if updateFanAgeLink.result?.success}
+          <p class="success">{updateFanAgeLink.result.success}</p>
+        {/if}
+        <form {...updateFanAgeLink}>
+          <label class="text-nowrap"
+            >Sequence Prefix: <input class="w-32" required {...updateFanAgeLink.fields.seqPrefix.as("number")} /></label
+          >
+          <label class="text-nowrap">URL: <input {...updateFanAgeLink.fields.link.as("text")} /></label>
+          <input type="submit" value="Set" />
+        </form>
+        {#each removeSequencePrefix.fields.allIssues() as issue (issue.path)}
           <p class="error">{issue.message}</p>
         {/each}
         {#if removeSequencePrefix.result?.error}

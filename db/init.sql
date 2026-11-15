@@ -18,5 +18,6 @@ CREATE UNIQUE INDEX "UniqEmailIdx" ON "Accounts" (lower("email"));
 CREATE TABLE "SequencePrefixes" (
 	"seqPrefix" INTEGER NOT NULL,
 	"age" VARCHAR NOT NULL,
+  "link" TEXT NULL DEFAULT NULL,
 	PRIMARY KEY ("seqPrefix")
 );

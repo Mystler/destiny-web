@@ -16,7 +16,9 @@
   <p>Here is a list of the currently supported fan ages and their unique sequence prefix numbers.</p>
   <p>
     These ages can be visited on Destiny, but be aware that you still need to get the game files for them yourself and
-    put them into the game folder in order to actually play there.
+    put them into the game folder in order to actually play there. If an age listed here has a link, it will go to a
+    third-party host where you can download the files as they were provided by the age developer. The contents are not
+    vetted by Destiny.
   </p>
   <p>
     If you are logged into the site, you can upload your own fan age using the <a

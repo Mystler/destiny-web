@@ -10,8 +10,9 @@ export const uploadAge = form(
   v.object({
     agefile: v.pipe(v.file(), v.maxSize(100_000, "Age file too large!")),
     sdlfile: v.optional(v.pipe(v.file(), v.maxSize(100_000, "SDL file too large!"))),
+    dlLink: v.optional(v.union([v.literal(""), v.pipe(v.string(), v.url("Not a valid URL!"))])),
   }),
-  async ({ agefile, sdlfile }) => {
+  async ({ agefile, sdlfile, dlLink }) => {
     const { locals } = getRequestEvent();
     if (!locals.user) return error(401, "Unauthorized");
 
@@ -45,7 +46,9 @@ export const uploadAge = form(
     } catch (error) {
       diffSdl = (error as { stdout: Buffer | string }).stdout.toString();
     }
-    const message = `${locals.user.username} (${locals.user.email}) uploaded ${agefile.name} with ${sdlfile?.name || "no SDL"}.\n\n${diffAge}\n\n${diffSdl}`;
+    const message =
+      `${locals.user.username} (${locals.user.email}) uploaded ${agefile.name} with ${sdlfile?.name || "no SDL"}.\n\n` +
+      `${dlLink ? dlLink : "No download link provided"}\n\n${diffAge}\n\n${diffSdl}`;
     if (MAIL_TEST_MODE === "true") {
       console.log(message);
     } else {

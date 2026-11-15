@@ -30,6 +30,11 @@
       you there, once the server is ready. For any questions, feel free to
       <a href={resolve("about")}>reach out to me</a>!
     </p>
+    <p>
+      You can optionally provide a download link for your age as well. This should be some form of permanent link to an
+      external host of your choice where people can download an archive of all the age files they need to play on
+      Destiny. The link will be shown on the website's <a href={resolve("fan-ages")}>fan age list</a>.
+    </p>
 
     <form class="mt-8 flex flex-col items-center gap-2 text-left" enctype="multipart/form-data" {...uploadAge}>
       {#each uploadAge.fields.allIssues() as issue (issue.path)}
@@ -40,8 +45,12 @@
         <input required accept=".age" {...uploadAge.fields.agefile.as("file")} />
       </label>
       <label>
-        SDL File <i class="text-sm text-slate-500">(only if you have one)</i><br />
+        SDL File <i class="text-sm text-slate-500">(if you have one)</i><br />
         <input accept=".sdl" {...uploadAge.fields.sdlfile.as("file")} />
+      </label>
+      <label>
+        Download Link <i class="text-sm text-slate-500">(optional)</i><br />
+        <input class="w-86" {...uploadAge.fields.dlLink.as("text")} />
       </label>
       <input type="submit" value="Submit" />
     </form>

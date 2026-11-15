@@ -169,7 +169,7 @@ export const removeSequencePrefix = form(
 export const updateFanAgeLink = form(
   v.object({
     seqPrefix: v.pipe(v.number(), v.integer("Sequence Prefix must be an integer!")),
-    link: v.string(),
+    link: v.union([v.literal(""), v.pipe(v.string(), v.url("Not a valid URL!"))]),
   }),
   async ({ seqPrefix, link }) => {
     const event = getRequestEvent();

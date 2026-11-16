@@ -10,6 +10,29 @@
 <h1>News</h1>
 
 <div class="flex flex-col gap-2 p-1">
+  <Card date="2026-11-16 | Mystler">
+    <p>
+      Sharing ages for testing can be difficult. So far, testing either happens on the basis of private sharing or on
+      Minkata releases. While I do not see Destiny in any need to change that, nor do I intend to create a fan age
+      hosting service and take the responsibilities that would come with, I implemented one simple but helpful change.
+    </p>
+    <p>
+      When using the Fan Age Uploader tool, you can now also provide a download link to your age files with a third
+      party host. This is entirely optional but, if you do, I can add the link to the public fan ages list, so players
+      that want to help with testing your age can download it from your link and put the files in their own Destiny
+      client.
+    </p>
+    <p>
+      Ideally, the download link is a permanent link that doesn't change with updates. You can probably use any cloud
+      file share of your choice to get sharable links.
+    </p>
+    <p>
+      We will see how many age developers will actually take advantage of this feature. If you see any ages on the fan
+      age list light up with links, then that means somebody sent me a download link and they want to share the age
+      files for testing. Remember that the nature of this also means that ages may be incomplete, have bugs, and you
+      shouldn't spoil people that aren't also testing and who prefer to play released versions on other shards.
+    </p>
+  </Card>
   <Card date="2026-09-14 | Mystler">
     <p>
       Two days ago, I had to update the Personal.sdl file for Relto to a new version so it is compatible with modern

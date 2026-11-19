@@ -15,16 +15,18 @@
     Alternatively you can send me an e-mail at <code>developer (AT) mystler (DOT) eu</code>.
   </p>
   <p>
-    The DestinyURU server is running on the <a href="https://github.com/H-uru/dirtsand" target="_blank" rel="noopener"
-      >dirtsand</a
-    > open-source software.
+    The DestinyURU server is running on the <a href="https://github.com/H-uru/dirtsand" target="_blank" rel="noopener">
+      dirtsand
+    </a> open-source software.
   </p>
   <p>
     This website was created fully by myself using <a
       href="https://www.typescriptlang.org/"
       target="_blank"
-      rel="noopener">TypeScript</a
-    >,
+      rel="noopener"
+    >
+      TypeScript
+    </a>,
     <a href="https://svelte.dev/" target="_blank" rel="noopener">Svelte</a>, and
     <a href="https://tailwindcss.com/" target="_blank" rel="noopener">Tailwind CSS</a>.<br />
     The source code is available on

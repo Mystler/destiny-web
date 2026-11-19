@@ -103,9 +103,9 @@
     </Card>
   </div>
   <p>
-    <button type="button" class="link-btn" onclick={() => (showPlayerBrowser = !showPlayerBrowser)}
-      >Show All Players</button
-    >
+    <button type="button" class="link-btn" onclick={() => (showPlayerBrowser = !showPlayerBrowser)}>
+      Show All Players
+    </button>
   </p>
   {#if showPlayerBrowser}
     <div transition:slide class="mx-auto max-w-xl p-1">
@@ -229,13 +229,9 @@
           <p class="success">{addSequencePrefix.result.success}</p>
         {/if}
         <form {...addSequencePrefix}>
-          <label class="text-nowrap"
-            >Sequence Prefix: <input
-              class="w-32"
-              required
-              {...addSequencePrefix.fields.seqPrefix.as("number")}
-            /></label
-          >
+          <label class="text-nowrap">
+            Sequence Prefix: <input class="w-32" required {...addSequencePrefix.fields.seqPrefix.as("number")} />
+          </label>
           <label class="text-nowrap">Age: <input required {...addSequencePrefix.fields.ageName.as("text")} /></label>
           <input type="submit" value="Add" />
         </form>
@@ -249,9 +245,9 @@
           <p class="success">{updateFanAgeLink.result.success}</p>
         {/if}
         <form {...updateFanAgeLink}>
-          <label class="text-nowrap"
-            >Sequence Prefix: <input class="w-32" required {...updateFanAgeLink.fields.seqPrefix.as("number")} /></label
-          >
+          <label class="text-nowrap">
+            Sequence Prefix: <input class="w-32" required {...updateFanAgeLink.fields.seqPrefix.as("number")} />
+          </label>
           <label class="text-nowrap">URL: <input {...updateFanAgeLink.fields.link.as("text")} /></label>
           <input type="submit" value="Set" />
         </form>
@@ -265,13 +261,9 @@
           <p class="success">{removeSequencePrefix.result.success}</p>
         {/if}
         <form {...removeSequencePrefix}>
-          <label
-            >Sequence Prefix: <input
-              class="w-32"
-              required
-              {...removeSequencePrefix.fields.seqPrefix.as("number")}
-            /></label
-          >
+          <label>
+            Sequence Prefix: <input class="w-32" required {...removeSequencePrefix.fields.seqPrefix.as("number")} />
+          </label>
           <input type="submit" value="Remove" />
         </form>
       </div>

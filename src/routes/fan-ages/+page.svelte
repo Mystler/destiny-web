@@ -22,8 +22,10 @@
   </p>
   <p>
     If you are logged into the site, you can upload your own fan age using the <a
-      href={resolve("/(authenticated)/age-upload")}>Age Uploader</a
-    > form. I will add it to this list once I have processed your age.
+      href={resolve("/(authenticated)/age-upload")}
+    >
+      Age Uploader
+    </a> form. I will add it to this list once I have processed your age.
   </p>
   <p>
     Sequence prefixes below 100 should be considered reserved by Cyan and not used for fan ages. Likewise, do not use

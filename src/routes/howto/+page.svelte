@@ -30,16 +30,18 @@
         ready to go! When you want to update your existing client, you can just run the same script again.
       </p>
       <p>
-        GetUru also has a shell script for other platforms. You can try using that via <code
-          >./get_uru_client --destiny</code
-        >. <code>--help</code> will provide information about other optional settings.
+        GetUru also has a shell script for other platforms. You can try using that via <code>
+          ./get_uru_client --destiny
+        </code>. <code>--help</code> will provide information about other optional settings.
       </p>
       <p>
         GetUru effectively downloads the latest <a
           href="https://github.com/H-uru/Plasma/releases/tag/last-successful"
           target="_blank"
-          rel="noopener">precompiled H-uru/Plasma client</a
+          rel="noopener"
         >
+          precompiled H-uru/Plasma client
+        </a>
         , the game assets from
         <a href="https://github.com/H-uru/moul-assets" target="_blank" rel="noopener">H-uru/moul-assets</a>
         , and Destiny's
@@ -62,8 +64,10 @@
         The recommended client for Destiny is any client that is based on the <a
           href="https://github.com/H-uru/Plasma"
           target="_blank"
-          rel="noopener">H-uru/Plasma</a
+          rel="noopener"
         >
+          H-uru/Plasma
+        </a>
         fork. See that GitHub page and the
         <a href="https://h-uru.github.io/Plasma/building.html" target="_blank" rel="noopener">Building instructions</a> for
         more information.
@@ -88,8 +92,10 @@
         If you need to get the base game assets for your client, you can get them from the compiled folder in the <a
           href="https://github.com/H-uru/moul-assets"
           target="_blank"
-          rel="noopener">H-uru/moul-assets</a
-        > repository.
+          rel="noopener"
+        >
+          H-uru/moul-assets
+        </a> repository.
       </p>
     </Card>
   </div>

@@ -47,14 +47,15 @@
 {/if}
 
 <p>
-  <button class="link-btn" onclick={() => (showForm = showForm !== "email" ? "email" : undefined)}>Change E-Mail</button
-  >
+  <button class="link-btn" onclick={() => (showForm = showForm !== "email" ? "email" : undefined)}>
+    Change E-Mail
+  </button>
 
   <br />
 
-  <button class="link-btn" onclick={() => (showForm = showForm !== "password" ? "password" : undefined)}
-    >Change Password</button
-  >
+  <button class="link-btn" onclick={() => (showForm = showForm !== "password" ? "password" : undefined)}>
+    Change Password
+  </button>
 
   <br />
   <a class="link-btn" href={resolve("logout")}>Logout</a>

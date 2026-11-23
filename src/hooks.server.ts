@@ -5,14 +5,10 @@ export const handle: Handle = async ({ event, resolve }) => {
   const session = event.cookies.get("session");
   if (session) {
     const user = await getUserData(session);
-    if (user) {
-      if (user.banned) {
-        event.cookies.delete("session", { path: "/" });
-      } else {
-        event.locals.user = user;
-      }
-    } else {
+    if (!user || user.banned) {
       event.cookies.delete("session", { path: "/" });
+    } else {
+      event.locals.user = user;
     }
   }
 

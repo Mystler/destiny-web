@@ -2,7 +2,7 @@
   // Disable ESLint alert for using @html because highlight.js will sanitize
   /* eslint svelte/no-at-html-tags: 0 */
 
-  import { slide } from "#lib/assets/Animatons.js";
+  import { slide } from "#lib/Animations.js";
   import Card from "#lib/components/Card.svelte";
   import {
     addSequencePrefix,

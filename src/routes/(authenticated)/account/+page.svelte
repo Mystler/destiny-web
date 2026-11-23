@@ -1,6 +1,6 @@
 <script lang="ts">
   import { resolve } from "$app/paths";
-  import { slide } from "#lib/assets/Animatons.js";
+  import { slide } from "#lib/Animations.js";
   import ButtonLink from "#lib/components/ButtonLink.svelte";
   import Card from "#lib/components/Card.svelte";
   import { onMount } from "svelte";

@@ -7,6 +7,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     const user = await getUserData(session);
     if (!user || user.banned) {
       event.cookies.delete("session", { path: "/" });
+      event.locals.user = undefined;
     } else {
       event.locals.user = user;
     }

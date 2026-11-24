@@ -1,10 +1,11 @@
-import { form, getRequestEvent } from "$app/server";
+import { form } from "$app/server";
 import { AGES_DIR, AGEUPLOAD_DIR, MAIL_ADMIN, MAIL_TEST_MODE, SDL_DIR } from "$app/env/private";
 import { sendMail } from "#lib/server/mailer.js";
 import { error } from "@sveltejs/kit";
 import { execSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
 import * as v from "valibot";
+import { requireLogin } from "#lib/server/authcheck.js";
 
 export const uploadAge = form(
   v.object({
@@ -13,8 +14,7 @@ export const uploadAge = form(
     dlLink: v.optional(v.union([v.literal(""), v.pipe(v.string(), v.url("Not a valid URL!"))])),
   }),
   async ({ agefile, sdlfile, dlLink }) => {
-    const { locals } = getRequestEvent();
-    if (!locals.user) return error(401, "Unauthorized");
+    const user = requireLogin();
 
     if (agefile.name.includes('"') || (sdlfile && sdlfile.name.includes('"'))) return error(400, "WTF!");
 
@@ -47,7 +47,7 @@ export const uploadAge = form(
       diffSdl = (error as { stdout: Buffer | string }).stdout.toString();
     }
     const message =
-      `${locals.user.username} (${locals.user.email}) uploaded ${agefile.name} with ${sdlfile?.name || "no SDL"}.\n\n` +
+      `${user.username} (${user.email}) uploaded ${agefile.name} with ${sdlfile?.name || "no SDL"}.\n\n` +
       `${dlLink ? dlLink : "No download link provided"}\n\n${diffAge}\n\n${diffSdl}`;
     if (MAIL_TEST_MODE === "true") {
       console.log(message);

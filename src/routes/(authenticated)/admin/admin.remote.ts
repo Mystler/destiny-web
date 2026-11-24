@@ -1,5 +1,5 @@
 import * as v from "valibot";
-import { command, form, getRequestEvent, query } from "$app/server";
+import { command, form, query } from "$app/server";
 import {
   createSequencePrefix,
   deleteSequencePrefix,
@@ -7,17 +7,16 @@ import {
   getOnlineAvatars,
   setFanAgeLink,
 } from "#lib/server/db.js";
-import { error } from "@sveltejs/kit";
 import { execSync } from "node:child_process";
 
 import { AGES_DIR, AGEUPLOAD_DIR, DIRTSAND_LOG_FILE, DIRTSAND_RESTART_COMMAND, SDL_DIR } from "$app/env/private";
 
 import { copyFileSync, readdirSync, readFileSync } from "node:fs";
 import { basename, dirname, extname } from "node:path";
+import { requireAdmin } from "#lib/server/authcheck.js";
 
 export const getOnlineList = query.live(async function* () {
-  const event = getRequestEvent();
-  if (!event.locals.user?.admin) return error(401, "Unauthorized");
+  requireAdmin();
   while (true) {
     yield await getOnlineAvatars();
     await new Promise((f) => setTimeout(f, 5000));
@@ -25,8 +24,7 @@ export const getOnlineList = query.live(async function* () {
 });
 
 export const getServerStatus = query.live(async function* () {
-  const event = getRequestEvent();
-  if (!event.locals.user?.admin) return error(401, "Unauthorized");
+  requireAdmin();
   while (true) {
     try {
       const cmdOut = execSync("ps -C dirtsand -o comm,etime").toString();
@@ -48,8 +46,7 @@ export const getServerStatus = query.live(async function* () {
 });
 
 export const getServerLogs = query(async () => {
-  const event = getRequestEvent();
-  if (!event.locals.user?.admin) return error(401, "Unauthorized");
+  requireAdmin();
 
   try {
     // Log file via .env
@@ -70,8 +67,7 @@ export const getServerLogs = query(async () => {
 });
 
 export const getPlayerList = query(async () => {
-  const event = getRequestEvent();
-  if (!event.locals.user?.admin) return error(401, "Unauthorized");
+  requireAdmin();
   return await getAllPlayers();
 });
 
@@ -80,8 +76,7 @@ export const viewAgeUpload = form(
     ageName: v.pipe(v.string(), v.nonEmpty()),
   }),
   async ({ ageName }) => {
-    const event = getRequestEvent();
-    if (!event.locals.user?.admin) return error(401, "Unauthorized");
+    requireAdmin();
 
     // Get files
     let age, sdl, liveAge, liveSdl: string;
@@ -117,23 +112,17 @@ export const viewAgeUpload = form(
 );
 
 export const copyAgeFile = command(v.string(), async (ageName) => {
-  const event = getRequestEvent();
-  if (!event.locals.user?.admin) return error(401, "Unauthorized");
-
+  requireAdmin();
   copyFileSync(`${AGEUPLOAD_DIR}/${ageName}.age`, `${AGES_DIR}/${ageName}.age`);
 });
 
 export const copySdlFile = command(v.string(), async (ageName) => {
-  const event = getRequestEvent();
-  if (!event.locals.user?.admin) return error(401, "Unauthorized");
-
+  requireAdmin();
   copyFileSync(`${AGEUPLOAD_DIR}/${ageName}.sdl`, `${SDL_DIR}/${ageName}.sdl`);
 });
 
 export const restartDirtsand = command(async () => {
-  const event = getRequestEvent();
-  if (!event.locals.user?.admin) return error(401, "Unauthorized");
-
+  requireAdmin();
   console.log("Got command to restart dirtsand.");
   execSync(DIRTSAND_RESTART_COMMAND);
 });
@@ -144,9 +133,7 @@ export const addSequencePrefix = form(
     ageName: v.pipe(v.string(), v.nonEmpty("Missing age name!")),
   }),
   async ({ seqPrefix, ageName }) => {
-    const event = getRequestEvent();
-    if (!event.locals.user?.admin) return error(401, "Unauthorized");
-
+    requireAdmin();
     if (!createSequencePrefix(seqPrefix, ageName))
       return { error: "Failed to add sequence prefix. This one may already exist." };
     return { success: "Age added." };
@@ -158,9 +145,7 @@ export const removeSequencePrefix = form(
     seqPrefix: v.pipe(v.number(), v.integer("Sequence Prefix must be an integer!")),
   }),
   async ({ seqPrefix }) => {
-    const event = getRequestEvent();
-    if (!event.locals.user?.admin) return error(401, "Unauthorized");
-
+    requireAdmin();
     if (!deleteSequencePrefix(seqPrefix)) return { error: "Failed to remove sequence prefix." };
     return { success: "Age removed." };
   },
@@ -172,9 +157,7 @@ export const updateFanAgeLink = form(
     link: v.union([v.literal(""), v.pipe(v.string(), v.url("Not a valid URL!"))]),
   }),
   async ({ seqPrefix, link }) => {
-    const event = getRequestEvent();
-    if (!event.locals.user?.admin) return error(401, "Unauthorized");
-
+    requireAdmin();
     if (!setFanAgeLink(seqPrefix, link)) return { error: "Failed to change URL." };
     return { success: "URL set." };
   },

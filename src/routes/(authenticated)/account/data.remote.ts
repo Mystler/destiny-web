@@ -1,13 +1,12 @@
 import { form, getRequestEvent, query } from "$app/server";
 import { getUserAvatars, changeEmail, changePassword } from "#lib/server/db.js";
-import { error } from "@sveltejs/kit";
 import * as v from "valibot";
+import { requireLogin } from "#lib/server/authcheck.js";
 
 export const getAvatars = query.live(async function* () {
-  const event = getRequestEvent();
-  if (!event.locals.user) return error(401, "Unauthorized");
+  const user = requireLogin();
   while (true) {
-    yield await getUserAvatars(event.locals.user.authId);
+    yield await getUserAvatars(user.authId);
     await new Promise((f) => setTimeout(f, 5000));
   }
 });
@@ -18,10 +17,8 @@ export const updateEmail = form(
     password: v.pipe(v.string(), v.nonEmpty("Missing password!")),
   }),
   async ({ email, password }) => {
-    const event = getRequestEvent();
-    if (!event.locals.user) return error(401, "Unauthorized");
-
-    if (await changeEmail(event.locals.user.webId, password, email)) return { success: "E-Mail address changed!" };
+    const user = requireLogin();
+    if (await changeEmail(user.webId, password, email)) return { success: "E-Mail address changed!" };
     return { error: "Changing E-Mail address failed. Your password may have been wrong!" };
   },
 );
@@ -48,15 +45,14 @@ export const updatePassword = form(
     ),
   ),
   async ({ _old_password, _new_password }) => {
-    const event = getRequestEvent();
-    if (!event.locals.user) return error(401, "Unauthorized");
-
-    const token = await changePassword(event.locals.user.webId, _old_password, _new_password);
+    const user = requireLogin();
+    const token = await changePassword(user.webId, _old_password, _new_password);
     if (!token) {
       return {
         error: "Changing password failed. Your old password may have been wrong!",
       };
     }
+    const event = getRequestEvent();
     event.cookies.set("session", token, { path: "/" });
     return { success: "Password changed!" };
   },

@@ -1,11 +1,14 @@
 import tailwindcss from "@tailwindcss/vite";
 import adapter from "@sveltejs/adapter-node";
 import { sveltekit } from "@sveltejs/kit/vite";
+import { svelteDevtools } from "@sveltejs/vite-devtools-svelte";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  devtools: { apply: "serve" },
   plugins: [
     tailwindcss(),
+    svelteDevtools(),
     sveltekit({
       compilerOptions: {
         // Force runes mode for the project, except for libraries. Can be removed in svelte 6.

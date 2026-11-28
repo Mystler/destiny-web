@@ -5,24 +5,29 @@ import { error, redirect } from "@sveltejs/kit";
 import * as v from "valibot";
 
 export const setNewPassword = form(
-  v.object({
-    _new_password: v.pipe(
-      v.string(),
-      v.nonEmpty("Missing password!"),
-      v.maxLength(15, "Sorry, URU only supports password up to 15 characters in length!"),
+  v.pipe(
+    v.object({
+      _new_password: v.pipe(
+        v.string(),
+        v.nonEmpty("Missing password!"),
+        v.maxLength(15, "Sorry, URU only supports password up to 15 characters in length!"),
+      ),
+      _password_confirm: v.pipe(v.string(), v.nonEmpty("Missing password confirmation!")),
+    }),
+    v.forward(
+      v.partialCheck(
+        [["_new_password"], ["_password_confirm"]],
+        (x) => x._new_password === x._password_confirm,
+        "Password mismatch!",
+      ),
+      ["_password_confirm"],
     ),
-    _password_confirm: v.pipe(v.string(), v.nonEmpty("Missing password confirmation!")),
-  }),
-  async ({ _new_password, _password_confirm }) => {
+  ),
+  async ({ _new_password }) => {
     const { params } = getRequestEvent();
     if (!params.token || !(await forgotPasswordTokenCheck(params.token))) {
       return error(404, "Invalid token!");
     }
-
-    if (_new_password !== _password_confirm)
-      return {
-        error: "Your password confirmation did not match!",
-      };
 
     const token = await resetPassword(params.token, _new_password);
     if (!token) {

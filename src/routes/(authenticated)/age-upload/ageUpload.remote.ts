@@ -1,7 +1,6 @@
 import { form } from "$app/server";
 import { AGES_DIR, AGEUPLOAD_DIR, MAIL_ADMIN, MAIL_TEST_MODE, SDL_DIR } from "$app/env/private";
 import { sendMail } from "#lib/server/mailer.js";
-import { error } from "@sveltejs/kit";
 import { execSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
 import * as v from "valibot";
@@ -9,14 +8,22 @@ import { requireLogin } from "#lib/server/authcheck.js";
 
 export const uploadAge = form(
   v.object({
-    agefile: v.pipe(v.file(), v.maxSize(100_000, "Age file too large!")),
-    sdlfile: v.optional(v.pipe(v.file(), v.maxSize(100_000, "SDL file too large!"))),
+    agefile: v.pipe(
+      v.file(),
+      v.maxSize(100_000, "Age file too large!"),
+      v.check((x) => !x.name.includes('"'), "WTF!?"),
+    ),
+    sdlfile: v.optional(
+      v.pipe(
+        v.file(),
+        v.maxSize(100_000, "SDL file too large!"),
+        v.check((x) => !x.name.includes('"'), "WTF!?"),
+      ),
+    ),
     dlLink: v.optional(v.union([v.literal(""), v.pipe(v.string(), v.url("Not a valid URL!"))])),
   }),
   async ({ agefile, sdlfile, dlLink }) => {
     const user = requireLogin();
-
-    if (agefile.name.includes('"') || (sdlfile && sdlfile.name.includes('"'))) return error(400, "WTF!");
 
     // Store files
     writeFileSync(`${AGEUPLOAD_DIR}/${agefile.name}`, Buffer.from(await agefile.arrayBuffer()));
